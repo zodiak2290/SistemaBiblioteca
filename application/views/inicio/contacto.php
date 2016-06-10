@@ -8,18 +8,18 @@
                 </div>
                 <div class="col-md-8">
                     <!-- Embedded Google Map using an iframe - to select your location find it on Google maps and paste the link as the iframe src. If you want to use the Google Maps API instead then have at it! -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15256.794857943423!2d-96.7241!3d17.06293!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8589782b5aaf5d18!2sBiblioteca+Publica+central!5e0!3m2!1ses!2smx!4v1427358669708" width="100%" height="215" frameborder="0" style="border:0"></iframe> 
+                    mapa aqui 
                 </div>
                 <div class="col-md-4">
                     <p>Tels:
-                        <strong>(52) 951.516.1853, 951.516.4128</strong>
+                        <strong>(52) xxx.xxx.xxx, xxx.xxx.xxx</strong>
                     </p>
                     <p>Abierto: 
-                        <strong>Lunes a viernes, de 9:00 a 20:00 horas</strong>
+                        <strong>Lunes a viernes, de 7:00 a 20:00 horas</strong>
                       
                     </p>
                     <p>Dirección:
-                        <strong>Macedonio Alcalá 200 esquina Morelos, Centro Histórico 
+                        <strong>Ubicacionn aqui 
                             <br>Oaxaca, Oax</strong>
                           
                     </p>

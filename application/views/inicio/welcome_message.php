@@ -27,7 +27,7 @@ limit 10
     <div class="box">
       <div class="col-lg-12 text-center">
           <div class="col-lg-2">
-            <p ><a class="twitter-timeline" href="https://twitter.com/OaxacaBpc" data-widget-id="588792569858887680">Tweets por el @OaxacaBpc.</a></p>
+            <p ><a class="twitter-timeline" href="https://twitter.com/" data-widget-id="588792569858887680">Tweets.</a></p>
           </div>
           <div id="carousel-example-generic" class="carousel slide col-lg-7" style="margin-left:7px;">
               <!-- Indicators -->

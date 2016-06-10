@@ -15,7 +15,7 @@
         }
         
     ?>
-    <title>Biblioteca Pública</title>
+    <title>Biblioteca</title>
     <!-- Bootstrap Core CSS --> 
     <link rel='stylesheet' type='text/css' href="<?php echo site_url();?>css/bootstrap.min.css"  media="all" />
     <!-- Custom CSS -->
@@ -35,10 +35,10 @@
 <body id="body" hidden>
     <div class="brand titulo" hidden>     
         <img style="max-width:100px; height:50px; margin-top: -7px;"
-             src="<?php echo site_url(); ?>images/logo/oaxaca.png">
-            Biblioteca Pública Central Margarita Maza de Juárez
+             src="<?php echo site_url(); ?>images/logo/oax.png">
+            Biblioteca 
          <img style="max-width:100px; height:50px; margin-top: -7px;"
-             src="<?php echo site_url(); ?>images/logo/logooax.png">
+             src="<?php echo site_url(); ?>images/logo/looax.png">
     </div>
     <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
@@ -84,7 +84,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Biblioteca Pùblica Margarita Maza de Juárez &copy; </p>
+                    <p>Biblioteca &copy; </p>
                 </div>
             </div>
         </div>
