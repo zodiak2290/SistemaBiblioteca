@@ -182,11 +182,14 @@ class Admin extends MY_Controller {
         $resultados['labels']=array("Enero","Febrero","Marzo","Abril","Mayo","Junio","JUlio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $resultados['prestamosexternos']=$prestamo->get_prestamos_by_graficas_por_anio($anio,'E');
         $resultados['prestamosinternos']=$prestamo->get_prestamos_by_graficas_por_anio($anio,'I');
-
-        $respuesta['datasets']=array();
-        $respuesta['labels']=$resultados['labels'];
-        array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosexternos","Externos"));
-        array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosinternos","Internos"));
+            $respuesta['datasets']=array();
+            $respuesta['labels']=$resultados['labels'];
+            if($resultados['prestamosexternos']){
+                array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosexternos","Externos"));
+            }
+            if($resultados['prestamosinternos']){
+                array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosinternos","Internos"));
+            }
 
         return $respuesta;
 
@@ -202,8 +205,12 @@ class Admin extends MY_Controller {
         $resultados['prestamosinternos']=$prestamo->get_prestamos_by_graficas('I',$and);
         $respuesta['datasets']=array();
         $respuesta['labels']=$resultados['labels'];
-        array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosexternos","Externos"));
-        array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosinternos","Internos"));
+        if($resultados['prestamosexternos']){
+            array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosexternos","Externos"));
+        }
+        if($resultados['prestamosinternos']){
+            array_push($respuesta['datasets'],$this->get_Dataset($resultados,"prestamosinternos","Internos"));
+        }
         return $respuesta;
     }
     /*Formato de respuesta para utilizar en las graficas hightcharts */
