@@ -1,0 +1,286 @@
+a:2:{s:6:"expire";i:1448388929;s:7:"headers";a:0:{}}ENDCI--->﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+         <link rel="icon" type="image/x-icon" href="http://192.168.1.89:8080/CodeIgniter/logo.ico" />
+    <title>Biblioteca Pública</title>
+    <!-- Bootstrap Core CSS --> 
+    <link rel='stylesheet' href="http://192.168.1.89:8080/CodeIgniter/css/bootstrap.min.css" type='text/css' media="all" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="http://192.168.1.89:8080/CodeIgniter/css/business-casual.css" type="text/css" media="all" />
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="http://192.168.1.89:8080/CodeIgniter/js/jquery.js"></script>
+<script src="http://192.168.1.89:8080/CodeIgniter/js/bootstrap.min.js"></script>
+    
+</head>
+<body id="body" hidden>
+    <div class="brand titulo" hidden>     
+        <img style="max-width:100px; height:50px; margin-top: -7px;"
+             src="http://192.168.1.89:8080/CodeIgniter/images/logo/oaxaca.png">
+            Biblioteca Pública Central Margarita Maza de Júarez
+         <img style="max-width:100px; height:50px; margin-top: -7px;"
+             src="http://192.168.1.89:8080/CodeIgniter/images/logo/logooax.png">
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container titulo">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand titulo" href="index.html">Biblioteca Pública</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav menu">
+                    <li><a href="http://192.168.1.89:8080/CodeIgniter/">Inicio </a> </li>
+                    <li><a  href="http://192.168.1.89:8080/CodeIgniter/biblioteca">Biblioteca</a></li>
+                    <li><a href="http://192.168.1.89:8080/CodeIgniter/servicios">Servicios</a></li>
+                    <li><a href="http://192.168.1.89:8080/CodeIgniter/actividades">Actividades</a></li>
+                    <li><a href="http://192.168.1.89:8080/CodeIgniter/consulta">Catálogo</a></li>
+                    <li><a href="http://192.168.1.89:8080/CodeIgniter/contacto">Contacto</a></li>
+                                        <li><a href="http://192.168.1.89:8080/CodeIgniter/login">Iniciar sesión</a></li>
+                                    </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+            <!--Vista enviada desde welcome -->
+            <div class="row">
+    <div class="box">
+<div class="col-lg-12 text-center">
+      		<div id="mainBody">
+          <div id="actividades" class="col-lg-12 text-center">
+            <div id="container-main">
+            <div align="center">
+                  <ul class="pagination ">
+                                    </ul>
+            </div>
+                              <div class="accordion-container">
+                    <a href="#" class="accordion-titulo"  style="font-size:12px">Por Mis Pistolas<span  style="font-size:14px" class="toggle-icon"></span></a>
+                    <div class="accordion-content col-lg-12" >
+                        <div id="img" class="col-lg-3 imagen thumbnail" style="width:30%; heigth:150px;">
+                          <img class="img-responsive container img-thumbnail"  src="http://192.168.1.89:8080/CodeIgniter/images/20151122111156.jpg" style="width:100%; heigth:150px; max-height:150px; max-width:100% ">
+                        </div>
+                        <div id="texto" class="col-lg-8" style="margin-left:6px;">
+                          <p align="justify" style="font-size:12px">El CSS de por sí, ya tiene formas de interactuar con los atributos del código HTML, por lo que estos atributos personalizados no suponen una gran diferencia respecto a los normales, pero si nos pueden ayudar a complementar de muchas formas la muestra de los datos.
+
+Lo primero que voy a poner en práctica son los estilos filtrados por atributos, con el siguiente CSS:.</p>
+                          <p align="justify"><em>Martes 24 de Noviembre</em></p>
+                          <p align="justify">11:45-14:10.</p>    
+                       </div>
+                    </div>  
+                </div>
+                                <div class="accordion-container">
+                    <a href="#" class="accordion-titulo"  style="font-size:12px">Diciembre 2<span  style="font-size:14px" class="toggle-icon"></span></a>
+                    <div class="accordion-content col-lg-12" >
+                        <div id="img" class="col-lg-3 imagen thumbnail" style="width:30%; heigth:150px;">
+                          <img class="img-responsive container img-thumbnail"  src="http://192.168.1.89:8080/CodeIgniter/images/20151118201139.jpg" style="width:100%; heigth:150px; max-height:150px; max-width:100% ">
+                        </div>
+                        <div id="texto" class="col-lg-8" style="margin-left:6px;">
+                          <p align="justify" style="font-size:12px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                          <p align="justify"><em>Miercoles 25 de Noviembre</em></p>
+                          <p align="justify">10:30-12:00.</p>    
+                       </div>
+                    </div>  
+                </div>
+                                <div class="accordion-container">
+                    <a href="#" class="accordion-titulo"  style="font-size:12px">Por Mis Pistolas<span  style="font-size:14px" class="toggle-icon"></span></a>
+                    <div class="accordion-content col-lg-12" >
+                        <div id="img" class="col-lg-3 imagen thumbnail" style="width:30%; heigth:150px;">
+                          <img class="img-responsive container img-thumbnail"  src="http://192.168.1.89:8080/CodeIgniter/images/20151122111156.jpg" style="width:100%; heigth:150px; max-height:150px; max-width:100% ">
+                        </div>
+                        <div id="texto" class="col-lg-8" style="margin-left:6px;">
+                          <p align="justify" style="font-size:12px">El CSS de por sí, ya tiene formas de interactuar con los atributos del código HTML, por lo que estos atributos personalizados no suponen una gran diferencia respecto a los normales, pero si nos pueden ayudar a complementar de muchas formas la muestra de los datos.
+
+Lo primero que voy a poner en práctica son los estilos filtrados por atributos, con el siguiente CSS:.</p>
+                          <p align="justify"><em>Jueves 26 de Noviembre</em></p>
+                          <p align="justify">11:45-14:10.</p>    
+                       </div>
+                    </div>  
+                </div>
+                            </div>
+          </div>
+        </div>
+      	</div>
+  </div>
+  </div>
+<style type="text/css">
+  #actividades{
+    display: flex;
+    width: 100%;  
+  }
+ 
+#container-main{
+    width:100%;
+    min-width:30%;
+    max-width:95%;
+    margin-left: 20px;
+    margin-rigth: 20px;
+
+}
+ 
+#container-main h1{
+    font-size: 40px;
+    text-shadow:4px 4px 5px #16a085;
+}
+ 
+.accordion-container {
+    width: 100%;
+    margin: 0 0 20px;
+    clear:both;
+}
+ 
+.accordion-titulo {
+    position: relative;
+    display: block;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 300;
+    background: #a97c50;
+    color: #fff;
+    text-decoration: none;
+}
+.accordion-titulo.open {
+    background: #16a085;
+    color: #58595B;
+}
+.accordion-titulo:hover {
+    background: #c2b59b;
+}
+ 
+.accordion-titulo span.toggle-icon:before {
+    content:"+";
+}
+ 
+.accordion-titulo.open span.toggle-icon:before {
+    content:"-";
+}
+ 
+.accordion-titulo span.toggle-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 38px;
+    font-weight:bold;
+}
+ 
+.accordion-content {
+    display: none;
+    padding: 20px;
+    overflow: auto;
+}
+ 
+.accordion-content p{
+    margin:0;
+}
+ 
+.accordion-content img {
+    display: block;
+    float: left;
+    margin: 0 15px 10px 0;
+    width: 50%;
+    height: auto;
+}
+ 
+ 
+@media (max-width: 800px) {
+    .accordion-content {
+        padding: 10px 0;
+    }
+    .accordion-container {
+      width: 100%;
+      margin: 0 0 10px;
+      clear:both;
+    }
+}
+</style>
+
+<script src="http://192.168.1.89:8080/CodeIgniter/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(".accordion-titulo").click(function(){
+   var contenido=$(this).next(".accordion-content");
+   if(contenido.css("display")=="none"){ //open   
+      contenido.slideDown(250);     
+      $(this).addClass("open");
+   }
+   else{ //close    
+      contenido.slideUp(250);
+      $(this).removeClass("open");  
+  }
+              
+});
+</script>    </div>
+    <!-- /.container -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Biblioteca Publica Margarita Maza de Jùarez &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <style type="text/css">
+    .menu li a{
+        font-size: 12px;
+    font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";
+    }
+    .container{
+        font-size: 12px;
+        font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";
+        
+    }
+    @font-face {
+    src: url('http://192.168.1.89:8080/CodeIgniter/css/tipogr/humnst777-bt-bold.woff');
+    }
+    .titulo{
+         font-family: "Humnst777 Bold BT";
+         font-size: 16px;
+    }
+    .nav li a{
+        font-family: "Helvetica Narrow Bold";
+        font-size: 12px;
+    }
+    .brand{
+        background: linear-gradient(90deg, #fff 35%,#c79a2d);
+        background: -webkit-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Firefox 3.6 to 15 */
+    }
+    
+    </style>
+    <!-- jQuery -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <!-- Script to Activate the Carousel -->
+    <script language="JavaScript" type="text/javascript">
+       $( document ).ready(function() {
+            $("#body").fadeIn(100);
+            $("#titulo").fadeIn(1000);
+        });
+
+
+    </script>
+</body>
+</html>

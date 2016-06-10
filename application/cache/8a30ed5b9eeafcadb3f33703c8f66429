@@ -1,0 +1,603 @@
+a:2:{s:6:"expire";i:1449311130;s:7:"headers";a:0:{}}ENDCI--->﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+         <link rel="icon" type="image/x-icon" href="http://192.168.1.71:8080/CodeIgniter/logo.ico" />
+    <title>Biblioteca Pública</title>
+    <!-- Bootstrap Core CSS --> 
+    <link rel='stylesheet' href="http://192.168.1.71:8080/CodeIgniter/css/bootstrap.min.css" type='text/css' media="all" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="http://192.168.1.71:8080/CodeIgniter/css/business-casual.css" type="text/css" media="all" />
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="http://192.168.1.71:8080/CodeIgniter/js/jquery.js"></script>
+<script src="http://192.168.1.71:8080/CodeIgniter/js/bootstrap.min.js"></script>
+    
+</head>
+<body id="body" hidden>
+    <div class="brand titulo" hidden>     
+        <img style="max-width:100px; height:50px; margin-top: -7px;"
+             src="http://192.168.1.71:8080/CodeIgniter/images/logo/oaxaca.png">
+            Biblioteca Pública Central Margarita Maza de Júarez
+         <img style="max-width:100px; height:50px; margin-top: -7px;"
+             src="http://192.168.1.71:8080/CodeIgniter/images/logo/logooax.png">
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container titulo">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand titulo" href="index.html">Biblioteca Pública</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav menu">
+                    <li><a href="http://192.168.1.71:8080/CodeIgniter/">Inicio </a> </li>
+                    <li><a  href="http://192.168.1.71:8080/CodeIgniter/biblioteca">Biblioteca</a></li>
+                    <li><a href="http://192.168.1.71:8080/CodeIgniter/servicios">Servicios</a></li>
+                    <li><a href="http://192.168.1.71:8080/CodeIgniter/actividades">Actividades</a></li>
+                    <li><a href="http://192.168.1.71:8080/CodeIgniter/consulta">Catálogo</a></li>
+                    <li><a href="http://192.168.1.71:8080/CodeIgniter/contacto">Contacto</a></li>
+                                        <li><a href="http://192.168.1.71:8080/CodeIgniter/login">Iniciar sesión</a></li>
+                                    </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+            <!--Vista enviada desde welcome -->
+             
+<div class="row">
+
+<link rel="stylesheet" type="text/css" href="http://192.168.1.71:8080/CodeIgniter/css/agency.css" />
+    <div class="box">
+      <div class="col-lg-12 text-center">
+          <div class="col-lg-2">
+            <p ><a class="twitter-timeline" href="https://twitter.com/OaxacaBpc" data-widget-id="588792569858887680">Tweets por el @OaxacaBpc.</a></p>
+          </div>
+          <div id="carousel-example-generic" class="carousel slide col-lg-7" style="margin-left:7px;">
+              <!-- Indicators -->
+              <ol class="carousel-indicators hidden-xs">
+                                
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" >
+                                </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="icon-prev"></span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="icon-next"></span>
+              </a>
+          </div>
+          <div class="col-lg-2">
+            <div id="calendario" class="calendario" >
+  <div >
+        <table class="table table-bordered table-hover table-striped">
+                              <thead style="background: linear-gradient(180deg,#c79a2d,#fff);">
+                                 <tr>         
+                                  <th colspan="7" style="text-align:center">Actividades del mes</th>
+                                </tr>
+                              </thead>
+                              <tbody >
+                                <tr style="background: linear-gradient( 180deg,#fff,#c79a2d);">
+                                  <td colspan="4">
+                                  Diciembre                                  </td>
+                                  <td colspan="3">
+                                    2015                                  </td>
+                                </tr>
+                                <tr style="background: #c2b59b;">
+                                  <td>D</td><td>L</td><td>M</td><td>M</td><td>J</td><td>V</td><td>S</td>
+                                </tr>
+                                <tr>
+                                                <td></td>
+                              <td></td>
+                              <td class="acalendar"  >
+                1</a>
+                              </td>
+                                            <td class="acalendar"  >
+                2</a>
+                              </td>
+                                            <td class="acalendar"  >
+                3</a>
+                              </td>
+                                            <td class="acalendar"  >
+                4</a>
+                              </td>
+                                            <td class="acalendar" style='background: linear-gradient( 180deg, #c2b59b,#fff)'; >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/5/" > 
+                  5</a>
+                              </td>
+                                                          </tr><tr>
+                                          <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/6/" > 
+                  6</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/7/" > 
+                  7</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/8/" > 
+                  8</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/9/" > 
+                  9</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/10/" > 
+                  10</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/11/" > 
+                  11</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/12/" > 
+                  12</a>
+                              </td>
+                                                          </tr><tr>
+                                          <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/13/" > 
+                  13</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/14/" > 
+                  14</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/15/" > 
+                  15</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/16/" > 
+                  16</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/17/" > 
+                  17</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/18/" > 
+                  18</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/19/" > 
+                  19</a>
+                              </td>
+                                                          </tr><tr>
+                                          <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/20/" > 
+                  20</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/21/" > 
+                  21</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/22/" > 
+                  22</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/23/" > 
+                  23</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/24/" > 
+                  24</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/25/" > 
+                  25</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/26/" > 
+                  26</a>
+                              </td>
+                                                          </tr><tr>
+                                          <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/27/" > 
+                  27</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/28/" > 
+                  28</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/29/" > 
+                  29</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/30/" > 
+                  30</a>
+                              </td>
+                                            <td class="acalendar"  >
+                                  <a class="cla" style="color:#58595B" href="http://192.168.1.71:8080/CodeIgniter/actividad/31/" > 
+                  31</a>
+                              </td>
+                                                    </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<style type="text/css">
+  .calendario{
+    margin-top: 4px;
+    font-size: 0.8em;
+  }
+</style>          </div>
+
+      </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="http://192.168.1.71:8080/CodeIgniter/css/jquery-ui.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="http://192.168.1.71:8080/CodeIgniter/css/elastislide.css" />
+<div class="row">
+  <div class="box">
+    <div class="col-lg-12 text-center">          
+      <div id="cs" class="main pull-right"  width="100%" height="300px">
+        <ul id="carousel" class="elastislide-list">
+           <li  class="elemento">
+            <a href="#"><img src="http://192.168.1.71:8080/CodeIgniter/images/logo/enlace1.png" class=" img-responsive" width="100%" height="300px"/>
+            </a>
+            </li>
+            <li  class="elemento">
+            <a href="#"><img src="http://192.168.1.71:8080/CodeIgniter/images/logo/enlace2.png" class=" img-responsive" width="100%" height="300px"/>
+            </a>
+            </li>
+            <li  class="elemento">
+            <a href="#"><img src="http://192.168.1.71:8080/CodeIgniter/images/logo/enlace3.png" class=" img-responsive" width="100%" height="300px"/>
+            </a>
+            </li>
+        </ul>    
+      </div>                   
+    </div>
+  </div>
+</div>
+<script language="javascript" type="text/javascript" src="http://192.168.1.71:8080/CodeIgniter/js/modernizr.custom.46884.js"></script>
+<script language="javascript" type="text/javascript" src="http://192.168.1.71:8080/CodeIgniter/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="http://192.168.1.71:8080/CodeIgniter/js/jquery.elastislide.js"></script>
+    <script  type="text/javascript">
+      $('#carousel' ).elastislide();
+    </script>
+
+<style type="text/css">
+#cs{
+  width: 100%;
+}
+
+</style>
+<style type="text/css">
+  #divBodynov{
+    margin-top:50px;
+    padding: 0;
+    width: 100%;
+  }
+  .elemento{
+    width: 100%;
+    margin-right: 1px;
+    margin-bottom: 15px;
+  }
+  .elemento p{
+    padding: 10px;
+    font-size: 13px;
+  }
+  .elemento a img{
+    width: 100%;
+    height: 200px;
+  }
+@media screen and (max-width:400px ){
+  #cs{
+  width: 100%;
+}
+.elemento a img{
+  width: 100%;
+    height: 100px;
+  }
+}
+</style>
+
+ 
+<div class="row">
+    <div class="box">
+      <div class="col-lg-12 text-center">
+          <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Novedades</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                       
+                        <li class="timeline-inverted">
+                            <div class="timeline-image" id="divimg20151104135736">
+                                <a href="http://192.168.1.71:8080/CodeIgniter/ejemplar/53496">
+                                    <img class="img-thumbnail img-responsive imagenes invertida"  style="width: 155px; height:180px;" src="http://192.168.1.71:8080/CodeIgniter/images/novedades/2015110413573620150824013711letras.jpg" alt="" >
+                                </a>
+                            </div>
+                            <div class="timeline-panel" id="panel20151104135736">
+                                <div class="timeline-heading">
+                                    <h4>Novelas Autobiográficas /olivia Zúñiga.</h4>
+                                </div>
+                                <div class="timeline-body "  > 
+                                    <p class="text-muted" id="descrip20151104135736" >
+                                    </p>
+
+                                    <span  id="sumary20151104135736">
+                                        <p align="justify">El Exorcista</p>
+                                    </span>
+                                    <span id="complete20151104135736" hidden >
+                                        <p align="justify">El Exorcista</p>
+                                    </span>         
+                                                                    </div>
+                            </div>
+                        </li>
+                         
+                        <li >
+                            <div class="timeline-image" id="divimg20151104111546">
+                                <a href="http://192.168.1.71:8080/CodeIgniter/ejemplar/53495">
+                                    <img class="img-thumbnail img-responsive imagenes invernull"  style="width: 155px; height:180px;" src="http://192.168.1.71:8080/CodeIgniter/images/novedades/2015110411154620150824012001letras.jpg" alt="" >
+                                </a>
+                            </div>
+                            <div class="timeline-panel" id="panel20151104111546">
+                                <div class="timeline-heading">
+                                    <h4>La Religión De Los Binnigula Sa  /coord. Víctor De La Cruz, Marcus Winter.</h4>
+                                </div>
+                                <div class="timeline-body "  > 
+                                    <p class="text-muted" id="descrip20151104111546" >
+                                    </p>
+
+                                    <span  id="sumary20151104111546">
+                                        <p align="justify">La Religión Es Una Cosa Cosa Cosa</p>
+                                    </span>
+                                    <span id="complete20151104111546" hidden >
+                                        <p align="justify">La Religión Es Una Cosa Cosa Cosa</p>
+                                    </span>         
+                                                                            <span class="more btn btn-info" id="20151104111546">Leer mas...</span>
+                                                                    </div>
+                            </div>
+                        </li>
+                         
+                        <li class="timeline-inverted">
+                            <div class="timeline-image" id="divimg20151118213700">
+                                <a href="http://192.168.1.71:8080/CodeIgniter/ejemplar/53494">
+                                    <img class="img-thumbnail img-responsive imagenes invertida"  style="width: 155px; height:180px;" src="http://192.168.1.71:8080/CodeIgniter/images/novedades/201511182137002015101811310420150817105915dic.jpg" alt="" >
+                                </a>
+                            </div>
+                            <div class="timeline-panel" id="panel20151118213700">
+                                <div class="timeline-heading">
+                                    <h4>Personas Y Personajes /ruy Pérez Tamayo.</h4>
+                                </div>
+                                <div class="timeline-body "  > 
+                                    <p class="text-muted" id="descrip20151118213700" >
+                                    </p>
+
+                                    <span  id="sumary20151118213700">
+                                        <p align="justify">"lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Se</p>
+                                    </span>
+                                    <span id="complete20151118213700" hidden >
+                                        <p align="justify">"lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo Consequat. Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse Cillum Dolore Eu Fugiat Nulla Pariatur. Excepteur Sint Occaecat Cupidatat Non Proident, Sunt In Culpa Qui Officia Deserunt Mollit Anim Id Est Laborum."</p>
+                                    </span>         
+                                                                            <span class="more btn btn-info" id="20151118213700">Leer mas...</span>
+                                                                    </div>
+                            </div>
+                        </li>
+                         
+                        <li >
+                            <div class="timeline-image" id="divimg20151104111736">
+                                <a href="http://192.168.1.71:8080/CodeIgniter/ejemplar/53493">
+                                    <img class="img-thumbnail img-responsive imagenes invernull"  style="width: 155px; height:180px;" src="http://192.168.1.71:8080/CodeIgniter/images/novedades/2015110411173620150817105915dic.jpg" alt="" >
+                                </a>
+                            </div>
+                            <div class="timeline-panel" id="panel20151104111736">
+                                <div class="timeline-heading">
+                                    <h4>Juárez En La Poesía /comp. Y Notas Vicente Magdaleno.</h4>
+                                </div>
+                                <div class="timeline-body "  > 
+                                    <p class="text-muted" id="descrip20151104111736" >
+                                    </p>
+
+                                    <span  id="sumary20151104111736">
+                                        <p align="justify">Juárez En La Poesía /comp. Y Notas </p>
+                                    </span>
+                                    <span id="complete20151104111736" hidden >
+                                        <p align="justify">Juárez En La Poesía /comp. Y Notas </p>
+                                    </span>         
+                                                                            <span class="more btn btn-info" id="20151104111736">Leer mas...</span>
+                                                                    </div>
+                            </div>
+                        </li>
+                         
+                        <li class="timeline-inverted">
+                            <div class="timeline-image" id="divimg20151118231755">
+                                <a href="http://192.168.1.71:8080/CodeIgniter/ejemplar/53492">
+                                    <img class="img-thumbnail img-responsive imagenes invertida"  style="width: 155px; height:180px;" src="http://192.168.1.71:8080/CodeIgniter/images/novedades/201511182317552015101811310420150817105915dic.jpg" alt="" >
+                                </a>
+                            </div>
+                            <div class="timeline-panel" id="panel20151118231755">
+                                <div class="timeline-heading">
+                                    <h4>Juárez En La Poesía /comp. Y Notas Vicente Magdaleno.</h4>
+                                </div>
+                                <div class="timeline-body "  > 
+                                    <p class="text-muted" id="descrip20151118231755" >
+                                    </p>
+
+                                    <span  id="sumary20151118231755">
+                                        <p align="justify">"lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Se</p>
+                                    </span>
+                                    <span id="complete20151118231755" hidden >
+                                        <p align="justify">"lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo Consequat. Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse Cillum Dolore Eu Fugiat Nulla Pariatur. Excepteur Sint Occaecat Cupidatat Non Proident, Sunt In Culpa Qui Officia Deserunt Mollit Anim Id Est Laborum."</p>
+                                    </span>         
+                                                                            <span class="more btn btn-info" id="20151118231755">Leer mas...</span>
+                                                                    </div>
+                            </div>
+                        </li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script type="text/javascript">
+    
+   $(".more").click(function(e) {
+        if($('#complete'+e.target.id).is(':hidden')){
+            $('#complete'+e.target.id).show(1000);
+            $('#sumary'+e.target.id).hide();
+            $('#'+e.target.id).text("Ocultar");
+
+            $('#panel'+e.target.id).addClass('rcorners1');
+        }else{
+            $('#complete'+e.target.id).hide(1000);
+            $('#sumary'+e.target.id).show();
+            $('#'+e.target.id).text("Leer mas...");
+            $('#panel'+e.target.id).removeClass('rcorners1');
+        }
+    }); 
+
+</script>
+<style type="text/css">
+    .imagenes:hover {
+  animation-duration: 1s;
+  animation-name: slidein;
+  -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));
+    -webkit-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    -moz-box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+}
+.invertida:hover{
+    margin-left: -50px;
+    width: 250%;
+}
+.invernull:hover{
+    width: 250%;
+    margin-left: 50px;
+}
+@keyframes slidein {
+    0%   {
+        width: 100%;
+        opacity: 3;
+    }   
+    25%  {
+        opacity: 1;
+    }
+    50%  {
+
+    }
+    75%  {
+        opacity: .9;
+    }
+    100% {
+        opacity: 1;
+        width: 200%;
+    }
+}
+.rcorners1{
+    margin-right: 1%;
+    z-index:99999; 
+    text-indent: 2em;
+    /*background: rgba(255,255,255,0);*/ 
+    text-align: justify;
+    /* Propiedad a animar, si se desean animar todas las propiedades se puede utilizar all*/
+    transition-property: all;
+    /* Duracion de la transicion*/
+    transition-duration: 3s;
+    /* Curva de aceleración a utilizar */
+    transition-timing-function: linear;
+    /* Tiempo de espera antes de iniciar la transición */
+    transition-delay: 0s;
+    font-family: cursive;
+    border-style: solid outset; 
+    border-width: 5px;
+    border-radius: 45px;
+    background:rgba(199,154,45,.7);
+}
+</style>
+
+    </div>
+    <!-- /.container -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Biblioteca Publica Margarita Maza de Jùarez &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <style type="text/css">
+    .menu li a{
+        font-size: 12px;
+    font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";
+    }
+    .container{
+        font-size: 12px;
+        font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue";
+        
+    }
+    @font-face {
+    src: url('http://192.168.1.71:8080/CodeIgniter/css/tipogr/humnst777-bt-bold.woff');
+    }
+    .titulo{
+         font-family: "Humnst777 Bold BT";
+         font-size: 16px;
+    }
+    .nav li a{
+        font-family: "Helvetica Narrow Bold";
+        font-size: 12px;
+    }
+    .brand{
+        background: linear-gradient(90deg, #fff 35%,#c79a2d);
+        background: -webkit-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(90deg, #fff 35%,#c79a2d); /* For Firefox 3.6 to 15 */
+    }
+    
+    </style>
+    <!-- jQuery -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <!-- Script to Activate the Carousel -->
+    <script language="JavaScript" type="text/javascript">
+       $( document ).ready(function() {
+            $("#body").fadeIn(100);
+            $("#titulo").fadeIn(1000);
+        });
+
+
+    </script>
+</body>
+</html>
