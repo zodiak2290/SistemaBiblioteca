@@ -15,7 +15,7 @@
         }
         
     ?>
-    <title>Biblioteca</title>
+    <title>Biblioteca de pureba</title>
     <!-- Bootstrap Core CSS --> 
     <link rel='stylesheet' type='text/css' href="<?php echo site_url();?>css/bootstrap.min.css"  media="all" />
     <!-- Custom CSS -->
