@@ -36,7 +36,6 @@ var $tabla="";
             return TRUE;
         }
     }
- 
     function agregar(){
         if(validarsesion())
         { 
