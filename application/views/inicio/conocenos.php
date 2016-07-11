@@ -6,7 +6,6 @@
 		         <p><strong>BIBLIOTECA PÚBLICA DE OAXACA </strong></p>
 		         <p align="justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
 		        <p align="justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
-=======
 		         <p><strong>BIBLIOTECA  </strong></p>
 		         <p align="justify"> La Biblioteca Pública Central de Oaxaca Margarita Maza de Juárez se encuentra a dos cuadras del zócalo de la ciudad
 					sobre la calle Macedonio Alcalá, en esquina con calle Morelos. Sus instalaciones ocupan una casa de principios del XVIII,

@@ -57,7 +57,9 @@
     display: flex;
     justify-content: center;
   }
-
+  .btn:hover{
+    transform: scale(1.5,1);
+  }
 </style>
        
       
