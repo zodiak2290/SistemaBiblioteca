@@ -9,13 +9,25 @@
               <?php $attributes = array('id' => 'formulario'); 
               echo form_open(base_url().'buscar',$attributes)?>
               <div class="page-header" align="center">
-                <input type="text" name="busqueda"  id="texto" ng-model="busqueda" />
-                <select id="tipo" name="tipo">
-                  <option name="c" value="1">Titulo</option>
-                  <option name="c" value="2">Autor</option>
-                  <option name="c" value="3">Materia</option>
-                </select>
-                <button id="buto" type="submit" class='btn btn-default btn-xs' >Buscar</button>
+              <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="input-group">
+                       <span class="input-group-btn">
+                          <button id="buto" type="submit" class="btn btn-info" type="button">Buscar!</button>
+                        </span>
+                        <input type="text" name="busqueda" class="form-control" id="texto" ng-model="busqueda" placeholder="Que buscas?" />
+                        <span class="input-group-btn">
+                          <select id="tipo" name="tipo" class="form-control">
+                            <option name="c" value="1">Titulo</option>
+                            <option name="c" value="2">Autor</option>
+                            <option name="c" value="3">Materia</option>
+                          </select>
+                        </span><!-- /btn-group -->
+                      </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                  </div><!-- /.row -->
+              </div>
                   <span><?php if(isset($total)) echo $total; ?></span>
                           <div class="windows8 row"  style="width: 50%" hidden id="cargando" >
                                 <div class="wBall" id="wBall_1">
@@ -42,6 +54,7 @@
             </div>
             <?=form_close()?> 
            <!-- <button class='btn btn-info btn-xs'>Busqueda Avanzada</button>-->
+          <div class="col-lg-12"> 
             <div class="table-responsive">
                     <div align="center">
             <ul class="pagination">
@@ -69,7 +82,8 @@
                       foreach ($resultados as $libro) {
                     ?>
                      <tr id="row">               
-                      <td><a href="<?php echo base_url()?>ejemplar/<?php echo $libro->nadqui?>"><?php echo $contador?></td>       
+                      <td>
+                      <a href="<?php echo base_url()?>ejemplar/<?php echo $libro->nadqui?>"><?php echo $contador?></a></td>       
                         <td><?php echo utf8_encode(ucwords(strtolower(utf8_decode(explode("/",$libro->titulo)[0]))))?></td>
                         <td><?php echo utf8_encode(ucwords(strtolower(utf8_decode($libro->nameautor))))?></td>
                         <td><?php echo $libro->clasificacion?></td>
@@ -87,7 +101,8 @@
                 ?>
               </tbody>
             </table>
-          </div> 
+          </div>
+          </div>
       </div> 
     </div>
 </div>
