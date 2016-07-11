@@ -3,7 +3,7 @@
     <div class="box">
 		<div class="col-lg-12 text-center">
 		        <span class="columna1_texto">
-		         <p><strong>BIBLIOTECA PÚBLICA DE OAXACA </strong></p>
+		         <p><strong>BIBLIOTECA  </strong></p>
 		         <p align="justify"> La Biblioteca Pública Central de Oaxaca Margarita Maza de Juárez se encuentra a dos cuadras del zócalo de la ciudad
 					sobre la calle Macedonio Alcalá, en esquina con calle Morelos. Sus instalaciones ocupan una casa de principios del XVIII,
 					representativa de la arquitectura civil de la ciudad. Fue remodelada en el periodo contemporáneo por los arquitectos 

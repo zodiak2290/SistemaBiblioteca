@@ -34,11 +34,8 @@
 </head>
 <body id="body" hidden>
     <div class="brand titulo" hidden>     
-        <img style="max-width:100px; height:50px; margin-top: -7px;"
-             src="<?php echo site_url(); ?>images/logo/oax.png">
             Biblioteca 
-         <img style="max-width:100px; height:50px; margin-top: -7px;"
-             src="<?php echo site_url(); ?>images/logo/looax.png">
+
     </div>
     <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
