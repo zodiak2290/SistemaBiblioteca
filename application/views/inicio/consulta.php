@@ -28,29 +28,29 @@
                     </div><!-- /.col-lg-6 -->
                   </div><!-- /.row -->
               </div>
-                  <span><?php if(isset($total)) echo $total; ?></span>
-                          <div class="windows8 row"  style="width: 50%" hidden id="cargando" >
-                                <div class="wBall" id="wBall_1">
-                                <div class="wInnerBall">
-                                </div>
-                                </div>
-                                <div class="wBall" id="wBall_2">
-                                <div class="wInnerBall">
-                                </div>
-                                </div>
-                                <div class="wBall" id="wBall_3">
-                                <div class="wInnerBall">
-                                </div>
-                                </div>
-                                <div class="wBall" id="wBall_4">
-                                <div class="wInnerBall">
-                                </div>
-                                </div>
-                                <div class="wBall" id="wBall_5">
-                                <div class="wInnerBall">
-                                </div>
-                                </div>
-                            </div> 
+              <span><?php if(isset($total)) echo $total; ?></span>
+              <div class="windows8 row"  style="width: 50%" hidden id="cargando" >
+                    <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                    <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall">
+                    </div>
+                    </div>
+                </div> 
             </div>
             <?=form_close()?> 
            <!-- <button class='btn btn-info btn-xs'>Busqueda Avanzada</button>-->
@@ -166,22 +166,3 @@ app.controller("consultacontroller",function ($scope){
 
   
 </script>
-<style type="text/css">
-#tabla{
-  -webkit-box-shadow: -30px 34px 30px rgba(199,154,45,.5); 
-  -moz-box-shadow: -30px 34px 30px rgba(199,154,45,.5);
-  box-shadow: -30px 34px 30px rgba(199,154,45,.5); 
-  border-radius: 20px;
-}
-#tabla #body{
-background: linear-gradient(270deg, #fff,#c2b59b);
-background: -webkit-linear-gradient(left, #fff,#c2b59b);
-background: -moz-linear-gradient(270deg, #fff,#c2b59b);
-}
- #tabla  #cabecera{
-  
- background: linear-gradient(270deg, #fff 5%,#c79a2d);
-  background:-webkit-linear-gradient(270deg, #fff 5%,#c79a2d);
-  background: -moz-linear-gradient(270deg, #fff 5%,#c79a2d);
-}
-</style>
