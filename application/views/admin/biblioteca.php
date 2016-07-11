@@ -1,14 +1,22 @@
 <?php 
     $this->load->database(); 
     $query = $this->db->query("select * from datosbiblio;");
-    foreach ($query->result() as $row){
-          $nombre=$row->namebiblio;
-          $localidad=$row->localidad;
-          $municipio=$row->municipio;
-          $estado=$row->estado;
-          $encargado=$row->encargado;
-          $email=$row->email;
-    }
+    $nombre="";
+    $localidad="";
+    $municipio="";
+    $estado="";
+    $encargado="";
+    $email="";
+    if($query->result()){
+        foreach ($query->result() as $row){
+              $nombre=$row->namebiblio;
+              $localidad=$row->localidad;
+              $municipio=$row->municipio;
+              $estado=$row->estado;
+              $encargado=$row->encargado;
+              $email=$row->email;
+        }
+      }
     if($rol==8){
  ?>  
 <div class="panel panel-default" ng-app="setting" ng-controller="setcontroller">
@@ -17,11 +25,8 @@
 					    <ul class="list-group" >
 					        <li class="col-lg-12 list-group-item " align="left">
                       <div class="col-lg-4"><strong>Nombre</strong></div>
-					            <div class="col-lg-4"><span><?php echo ucwords(strtolower(
-                      //$app." ".$apm." ".
-                      $nombre
-                      //." ".$sname
-                      ))?></span></div>
+					            <div class="col-lg-4"><span><?php   
+                          echo ucwords(strtolower($nombre))?></span></div>
 					            <div class="col-lg-4"><a ng-click="mostrarocultar('namebiblio')">Editar</a>                      
                       </div>
                       <div id="namebiblio" class="panel-body list-group-item-info hidden col-lg-12" align="center" >
