@@ -1062,9 +1062,12 @@ private function get_ultimo_uso($nadqui,$tipo){
 	 }
 	 function id_max(){
 	 	$resultado = $this->Libro_model->maxnadqui();
-	 	foreach ($resultado as $row) {
-	 		$idmax=$row->nadqui;
-	 	}
+		 	foreach ($resultado as $row) {
+		 		$idmax=$row->nadqui;
+		 	}
+		if(!$idmax){
+	 		$idmax=0;
+		}
 	 	echo $idmax;  
 	 }
 	 function editar(){
