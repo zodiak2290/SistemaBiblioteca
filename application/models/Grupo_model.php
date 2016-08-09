@@ -1,26 +1,26 @@
 <?php
-Class Grupo_model extends CI_Model
+class Grupo_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
     private function realizar_query($query)
     {
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }else{
+        } else {
             return false;
         }
     }
-    function show($inicio=0,$contar="")
+    function show($inicio = 0, $contar = "")
     {
         $this->db->select('*');
         $this->db->from('grupos');
-        if(strcmp($contar, "contar")==0) {
+        if (strcmp($contar, "contar")==0) {
             $query = $this->db->get();
-            return $query->num_rows(); 
-        }else{
+            return $query->num_rows();
+        } else {
             $this->db->limit(10, $inicio);
             $query = $this->db->get();
             return $this->realizar_query($query);
@@ -34,22 +34,22 @@ Class Grupo_model extends CI_Model
         $this->db->join("grupos", "grupos.idgrupo=grupo_id");
         $this->db->where('user_id', $cuenta);
         $query = $this->db->get();
-        if($query->num_rows() > 0) {
-            foreach ($query as $row){
+        if ($query->num_rows() > 0) {
+            foreach ($query as $row) {
                 return $query->result();
             }
-        }else{
+        } else {
             return false;
         }
     }
-    function agregar_a_grupo($cuenta,$idgrupo)
+    function agregar_a_grupo($cuenta, $idgrupo)
     {
         $idgrupouser=$this->find_persona_en_grupo($cuenta);
-        $grupo['grupo_id']=$idgrupo; 
-        if(!$idgrupouser) {
+        $grupo['grupo_id']=$idgrupo;
+        if (!$idgrupouser) {
             $grupo['user_id']= $cuenta;
             return $this->db->insert('grupouser', $grupo);
-        }else{
+        } else {
             $this->db->where('idgrupouser', $idgrupouser);
             return $this->db->update('grupouser', $grupo);
         }
@@ -60,11 +60,11 @@ Class Grupo_model extends CI_Model
         $this->db->from('grupouser');
         $this->db->where('user_id', $cuenta);
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
-                return $row->idgrupouser;    
+                return $row->idgrupouser;
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -75,7 +75,7 @@ Class Grupo_model extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function crearedit($id,$nombre,$multa,$dias,$reno,$cant,$vigencia)
+    function crearedit($id, $nombre, $multa, $dias, $reno, $cant, $vigencia)
     {
         $data = array(
           'namegrupo' => $nombre,
@@ -85,9 +85,9 @@ Class Grupo_model extends CI_Model
           'cantlibros'=>$cant,
           'vigencia'=>$vigencia
         );
-        if(!$this->findbyname($nombre)) {     
+        if (!$this->findbyname($nombre)) {
             return $this->db->insert('grupos', $data);
-        }else{
+        } else {
             return false;
         }
     }
@@ -99,6 +99,4 @@ Class Grupo_model extends CI_Model
         $query=$this->db->get();
         return $this->realizar_query($query);
     }
-
 }
-

@@ -1,8 +1,8 @@
 <?php
-Class Reserva_model extends CI_Model
+class Reserva_model extends CI_Model
 {
 
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -31,18 +31,18 @@ Class Reserva_model extends CI_Model
     }
     function eliminarreserva($id)
     {
-        $this->db->where('idreserva', $id); 
+        $this->db->where('idreserva', $id);
         return $this->db->delete('reservas');
     }
-    function obtener_datos($inicio=0,$cantidad=10,$nadqui=false,$cuenta=false,$tipo="")
+    function obtener_datos($inicio = 0, $cantidad = 10, $nadqui = false, $cuenta = false, $tipo = "")
     {
         $andnadqui=$nadqui?$andnadqui=" and ej.nadqui=".$nadqui:" ";
-        $andcuenta=$cuenta?" and ub.cuentausuario='".$cuenta."' ":" "; 
+        $andcuenta=$cuenta?" and ub.cuentausuario='".$cuenta."' ":" ";
         $this->load->library('periodos');
         $mes=$this->periodos->get_nombre_mes("fecha");
         $namdia=$this->periodos->get_nombredia("fecha", "nombredia");
         // seleccionamos titulo, cuentadeusuario, renovvaciones realizadas
-        //año mes y dia del prrestamo , año mes dia de entrega          
+        //año mes y dia del prrestamo , año mes dia de entrega
         $fechaentrega="DATE_ADD(fecha,interval 2 day) ";
         $mesentrega=$this->periodos->get_nombre_mes($fechaentrega, "mesvencimiento");
         $diaentrega=$this->periodos->get_nombredia($fechaentrega, "diavecimiento");
@@ -67,7 +67,7 @@ Class Reserva_model extends CI_Model
     {
         return ($query->num_rows() > 0) ? $query->result():false;
     }
-    function agregarreserva($nadqui,$cuenta,$fecha)
+    function agregarreserva($nadqui, $cuenta, $fecha)
     {
           $data['idreserva']=$nadqui.$cuenta;
           $data['nadqui'] = $nadqui;
@@ -85,7 +85,7 @@ Class Reserva_model extends CI_Model
         $this->db->where("iduser!=''");
         $this->db->delete('users');
         $this->db->trans_complete();
-        return $this->db->trans_status(); 
+        return $this->db->trans_status();
     }
     function contar_reservas()
     {
@@ -93,4 +93,3 @@ Class Reserva_model extends CI_Model
         return $this->db->count_all_results();
     }
 }
-

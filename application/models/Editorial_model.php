@@ -1,7 +1,7 @@
 <?php
-Class Editorial_model extends CI_Model
+class Editorial_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -19,7 +19,7 @@ Class Editorial_model extends CI_Model
     {
         $data['nameeditorial']=$editorial;
         return $this->db->insert('editoriales', $data);
-    } 
+    }
     function creaautor($nombre)
     {
         $this->db->select('*');
@@ -27,13 +27,13 @@ Class Editorial_model extends CI_Model
         $this->db->where('nameautor', $nombre);
         $this->db->limit(1);
         $query=$this->db->get();
-        return ($query->num_rows() > 0) ? $query->result(): $this->insertarautor($nombre); 
+        return ($query->num_rows() > 0) ? $query->result(): $this->insertarautor($nombre);
     }
     function insertarautor($nombre)
     {
         $data['nameautor']=$nombre;
         return $this->db->insert('autor', $data);
-    } 
+    }
     function creaclasificacion($clasificacion)
     {
         $this->db->select('*');
@@ -47,7 +47,5 @@ Class Editorial_model extends CI_Model
     {
         $data['clasificacion']=$clasificacion;
         return $this->db->insert('clasificacion', $data);
-    } 
-
+    }
 }
-

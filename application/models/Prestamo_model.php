@@ -1,5 +1,5 @@
 <?php
-Class Prestamo_model extends CI_Model
+class Prestamo_model extends CI_Model
 {
     var $consultaprestamosindevolucion=" from prestamos as p 
             join detalleprestamo as dp on p.idprestamo=dp.prestamo_id
@@ -10,25 +10,25 @@ Class Prestamo_model extends CI_Model
             join grupouser as gp on gp.user_id=per.curp
             join grupos as g on g.idgrupo=gp.grupo_id
             where dp.fechadev is null";
-    var $fechaentrega="DATE_ADD(date(fechaprestamo),interval (diasentrega+(renovacion*contreno) )  day)";           
-    public function construct() 
+    var $fechaentrega="DATE_ADD(date(fechaprestamo),interval (diasentrega+(renovacion*contreno) )  day)";
+    public function construct()
     {
         parent::__construct();
 
     }
 
-    function contar_prestamos_activos($soloretrasos=false)
+    function contar_prestamos_activos($soloretrasos = false)
     {
         $and= $soloretrasos?">7":"<8";
         $query=$this->db->query("select count(*) as total".$this->consultaprestamosindevolucion. " and datediff(now(),fechaprestamo)".$and);
         $result=$this->realizar_query($query);
-        if($result) {
+        if ($result) {
             foreach ($result as $row) {
                 return $row->total;
             }
         }
     }
-    function get_prestamos_by_graficas($tipo,$and="")
+    function get_prestamos_by_graficas($tipo, $and = "")
     {
               $query=$this->db->query(
                   "
@@ -42,15 +42,13 @@ Class Prestamo_model extends CI_Model
                 group by year(fechaprestamo)
                 order by year(fechaprestamo)"
               );
-              if($query->num_rows()>0) {
-                     return $query->result_array(); 
-              }
-                else
-                {
+              if ($query->num_rows()>0) {
+                     return $query->result_array();
+              } else {
                     return false;
-                } 
+                }
     }
-    function get_prestamos_by_graficas_por_anio($anio,$tipo)
+    function get_prestamos_by_graficas_por_anio($anio, $tipo)
     {
         $query=$this->db->query(
             "
@@ -79,13 +77,11 @@ group by month(fechaprestamo)
 order by month(fechaprestamo)
         "
         );
-        if($query->num_rows()>0) {
-                 return $query->result_array(); 
-        }
-        else
-           {
+        if ($query->num_rows()>0) {
+                 return $query->result_array();
+        } else {
             return false;
-        } 
+        }
     }
 
     function agregarprestamo($nad)
@@ -101,27 +97,27 @@ order by month(fechaprestamo)
            $dato['fechadev']=date('Y-m-d H:i:s');
            $this->db->insert('detalleprestamo', $dato);
          $this->db->trans_complete();
-         return $this->db->trans_status(); 
+         return $this->db->trans_status();
     }
     function renovar($id)
     {
         $this->db->set('contreno', 'contreno+1', false);
         $this->db->where('iddetalleprestamo', $id);
-        return $this->db->update('detalleprestamo'); 
+        return $this->db->update('detalleprestamo');
 
     }
-    function saldar($multa,$monto)
+    function saldar($multa, $monto)
     {
         $data['pagado']=$monto;
         $this->db->where('idmulta', $multa);
-        return $this->db->update('multas', $data); 
+        return $this->db->update('multas', $data);
     }
-    private function insertartdetalle($idprestamo,$nad)
+    private function insertartdetalle($idprestamo, $nad)
     {
         $dato['prestamo_id']=$idprestamo;
         $dato['nadqui'] = $nad;
         $dato['iddetalleprestamo'] =$idprestamo.$this->contdetalleprestamo($idprestamo);
-        return $this->db->insert('detalleprestamo', $dato); 
+        return $this->db->insert('detalleprestamo', $dato);
     }
     private function contdetalleprestamo($idprestamo)
     {
@@ -129,34 +125,30 @@ order by month(fechaprestamo)
         $this->db->from('detalleprestamo');
         $this->db->where('prestamo_id', $idprestamo);
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
                 return $row->total+1;
-            }  
-        }                
-        else
-            {
+            }
+        } else {
             return 0;
         }
     }
 
-    function devolucion($idpres,$multa)
+    function devolucion($idpres, $multa)
     {
-          $this->db->select('iddetalleprestamo'); 
+          $this->db->select('iddetalleprestamo');
           $this->db->from("detalleprestamo as dp");
           $this->db->where("dp.fechadev is null");
           $this->db->where("iddetalleprestamo", $idpres);
           $query = $this->db->get();
-        if($query->num_rows()==1) {
+        if ($query->num_rows()==1) {
             foreach ($query->result() as $row) {
                 $idd=$row->iddetalleprestamo;
             }
-            $this->devolver($idd, $multa);  
-        }                
-        else
-           {
+            $this->devolver($idd, $multa);
+        } else {
             return false;
-        } 
+        }
     }
     private function multar($detalleprestamoid)
     {
@@ -165,12 +157,12 @@ order by month(fechaprestamo)
         $data['idmulta']=date("YmdHis").rand(0, 9).rand(0, 9);
         return $this->db->insert('multas', $data);
     }
-    private function devolver($detalleprestamoid,$multa)
+    private function devolver($detalleprestamoid, $multa)
     {
         $data=array('fechadev' =>date("Y-m-d H:i:s"));
         $this->db->where("iddetalleprestamo", $detalleprestamoid);
-        if($this->db->update('detalleprestamo', $data)) {
-            if($multa) {
+        if ($this->db->update('detalleprestamo', $data)) {
+            if ($multa) {
                 $this->multar($detalleprestamoid);
             }
         }
@@ -183,21 +175,21 @@ order by month(fechaprestamo)
         $this->db->where("fechaentrga is null");
         $this->db->where("nadqui", $nadqui);
          $query = $this->db->get();
-         return $this->realizar_query($query); 
+         return $this->realizar_query($query);
 
     }
       //inserciones para pruebas eliminar: insertart y buscar
     private function insertart()
     {
         $cont=0;
-        while($cont<5000){
+        while ($cont<5000) {
             $nadqui=rand(1, 53534);
-            if($this->buscar($nadqui)) {
+            if ($this->buscar($nadqui)) {
                 $data['idprestamo']="201s2sf".rand(1, 60).rand(2, 50).$nadqui;
                 $data['nadqui'] = $nadqui;
                 $data['fechahora']="2015-".rand(5, 11)."-".rand(9, 13)." ".rand(1, 9).":".rand(1, 30).":".rand(1, 59);
 
-                $this->db->insert('prestamointer', $data);       
+                $this->db->insert('prestamointer', $data);
             }
             $cont++;
         }
@@ -208,7 +200,7 @@ order by month(fechaprestamo)
         $this->db->from("ejemplares");
         $this->db->where("nadqui", $nadqui);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function permitirprestamo($cuenta)
     {
@@ -225,15 +217,13 @@ order by month(fechaprestamo)
           left join grupos as g on gu.grupo_id=g.idgrupo
           where ub.cuentausuario='".$cuenta."' and fechadev is null"
         );
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
                 return $row->permitir;
-            } 
-        }
-        else
-            {
+            }
+        } else {
             return false;
-        } 
+        }
     }
     function construir_consulta_para_graficas_procesos($nadqui)
     {
@@ -256,28 +246,28 @@ order by month(fechaprestamo)
           truncate(datediff(date(now()),fechaprestamo)/(diasentrega+(renovacion*contreno)),2)*100 as porcentaje,
           ".$this->get_barra('fechaprestamo')." ".$this->consultaprestamosindevolucion." and ub.cuentausuario='".$cuenta."'"
         );
-        return $this->realizar_query($query);  
+        return $this->realizar_query($query);
     }
-    function obtener_datos($inicio=0,$cantidad=10,$nadqui=false,$cuenta=false,$tipo="")
+    function obtener_datos($inicio = 0, $cantidad = 10, $nadqui = false, $cuenta = false, $tipo = "")
     {
-        if($nadqui) {
+        if ($nadqui) {
             $andnadqui=" and ej.nadqui=".$nadqui;
-        }else{
+        } else {
             $andnadqui=" ";
         }
-        if($cuenta) {
+        if ($cuenta) {
             $andcuenta=" and p.cuentausuario=".$cuenta."";
-        }else{
+        } else {
             $andcuenta=" ";
         }
-        if(strcmp($tipo, "enprestamo")==0) {
+        if (strcmp($tipo, "enprestamo")==0) {
             $query=$this->en_prestamo($inicio, $cantidad, $andnadqui, $andcuenta);
-        }else if(strcmp($tipo, "vencidos")==0) {
+        } elseif (strcmp($tipo, "vencidos")==0) {
             $query=$this->prestamosvencidos($inicio, $cantidad, $andnadqui, $andcuenta);
-        } 
-        return $this->realizar_query($query); 
+        }
+        return $this->realizar_query($query);
     }
-    private function prestamosvencidos($inicio=0,$cantidad=10,$nadqui,$cuenta)
+    private function prestamosvencidos($inicio = 0, $cantidad = 10, $nadqui, $cuenta)
     {
         $query=$this->db->query(
             $this->get_consulta_prestamo()." datediff(date(now()),".$this->fechaentrega.") as diasretraso,
@@ -287,7 +277,7 @@ order by month(fechaprestamo)
         );
         return $query;
     }
-    private function en_prestamo($inicio=0,$cantidad=10,$nadqui,$cuenta)
+    private function en_prestamo($inicio = 0, $cantidad = 10, $nadqui, $cuenta)
     {
         $query=$this->db->query(
             $this->get_consulta_prestamo()." nombreaval,emailaval,telefonoaval "
@@ -295,13 +285,13 @@ order by month(fechaprestamo)
             " and DATE_ADD(fechaprestamo,interval (diasentrega+(renovacion*contreno)) day)>curdate()
         ".$nadqui.$cuenta." limit ".$inicio.",".$cantidad
         );
-        return $query;  
+        return $query;
     }
     private function realizar_query($query)
     {
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }else{
+        } else {
             return false;
         }
     }
@@ -311,7 +301,7 @@ order by month(fechaprestamo)
         $mes=$this->periodos->get_nombre_mes("fechaprestamo");
         $namdia=$this->periodos->get_nombredia("fechaprestamo", "nombredia");
         // seleccionamos titulo, cuentadeusuario, renovvaciones realizadas
-        //año mes y dia del prrestamo , año mes dia de entrega          
+        //año mes y dia del prrestamo , año mes dia de entrega
         $fechaentrega=$this->fechaentrega;
         $mesentrega=$this->periodos->get_nombre_mes($fechaentrega, "mesentrega");
         $diaentrega=$this->periodos->get_nombredia($fechaentrega, "diaentrega");
@@ -331,4 +321,3 @@ order by month(fechaprestamo)
                                  end)as barra";
     }
 }
-

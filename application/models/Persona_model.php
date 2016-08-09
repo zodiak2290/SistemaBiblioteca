@@ -1,18 +1,18 @@
 <?php
-Class Persona_model extends CI_Model
+class Persona_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
-    function editpass($usuario,$curp)
+    function editpass($usuario, $curp)
     {
         $this->db->where('pcurp', $curp);
         return $this->db->update('usuariobiblio', $usuario);
     }
-    function crearedit($persona,$usuario,$grupo,$escuela)
+    function crearedit($persona, $usuario, $grupo, $escuela)
     {
-        if(!$this->curpocupada($persona['curp'])) {
+        if (!$this->curpocupada($persona['curp'])) {
             $this->db->trans_start();
             $persona['created_at']=date("Y-m-d H:i:s");
             $persona['updated_at']= date("Y-m-d H:i:s");
@@ -25,11 +25,11 @@ Class Persona_model extends CI_Model
             return $this->db->trans_status();
         }
     }
-    //editar un usaurio desde la vista show 
-    function update($datos,$curp)
+    //editar un usaurio desde la vista show
+    function update($datos, $curp)
     {
         $this->db->where('curp', $curp);
-        return $this->db->update('personas', $datos); 
+        return $this->db->update('personas', $datos);
     }
     private function curpocupada($curp)
     {
@@ -41,7 +41,7 @@ Class Persona_model extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function show($inicio=0,$contar="")
+    function show($inicio = 0, $contar = "")
     {
         $this->db->select("*");
         $this->db->from('personas');
@@ -50,22 +50,22 @@ Class Persona_model extends CI_Model
         $session_data = $this->session->userdata('logged_in');
         $rol=$session_data['rol'];
         $this->db->join("grupouser", "usuariobiblio.pcurp=grupouser.user_id", "left");
-        $this->db->join("grupos", "grupos.idgrupo=grupouser.grupo_id", 'left');  
-        if(strcmp($contar, "contar")==0) {
+        $this->db->join("grupos", "grupos.idgrupo=grupouser.grupo_id", 'left');
+        if (strcmp($contar, "contar")==0) {
             $query = $this->db->get();
-            return $query->num_rows(); 
-        }else{
+            return $query->num_rows();
+        } else {
             $this->db->limit(10, $inicio);
             $query = $this->db->get();
             return $this->realizar_query($query);
         }
-    } 
-    function findbyid($curp,$user)
+    }
+    function findbyid($curp, $user)
     {
         $this->db->select("*,date_add(updated_at, interval vigencia year) as 'vigente'");
         $this->db->from('personas');
         $this->db->join("usuariobiblio", 'personas.curp=usuariobiblio.pcurp');
-        if(strcmp($user, "userbi")==0) {
+        if (strcmp($user, "userbi")==0) {
             $this->db->join("grupouser", "usuariobiblio.pcurp=grupouser.user_id", 'left');
             $this->db->join("grupos", "grupos.idgrupo=grupouser.grupo_id", 'left');
             $this->db->join("escuelauser", "usuariobiblio.pcurp=escuelauser.user_id", 'left');
@@ -118,10 +118,10 @@ Class Persona_model extends CI_Model
     }
     function delete($id)
     {
-        $this->db->where('curp', $id); 
-        return $this->db->delete('personas'); 
+        $this->db->where('curp', $id);
+        return $this->db->delete('personas');
     }
-    function cuentaid($id,$cuenta)
+    function cuentaid($id, $cuenta)
     {
         $this->db->select('*');
         $this->db->from('personas');
@@ -130,9 +130,9 @@ Class Persona_model extends CI_Model
         $this->db->where('curp!=', $id);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
-    function emailid($id,$cuenta)
+    function emailid($id, $cuenta)
     {
         $this->db->select('*');
         $this->db->from('personas');
@@ -141,7 +141,7 @@ Class Persona_model extends CI_Model
         $this->db->where('curp!=', $id);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function contar()
     {
@@ -153,7 +153,7 @@ Class Persona_model extends CI_Model
         return $this->realizar_query($query);
     }
     //buscar usuario para valdiar email
-    function findusuario_by_cuenta($cuenta,$id)
+    function findusuario_by_cuenta($cuenta, $id)
     {
         $this->db->select("*");
         $this->db->from("usuariobiblio");
@@ -164,14 +164,10 @@ Class Persona_model extends CI_Model
     }
     private function realizar_query($query)
     {
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }
-        else
-         {
+        } else {
             return false;
         }
     }
-
 }
-

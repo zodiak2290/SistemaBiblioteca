@@ -1,7 +1,7 @@
-<?php 
-Class Libro_model extends CI_Model
+<?php
+class Libro_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -12,24 +12,24 @@ Class Libro_model extends CI_Model
          'volumen' => $volumen,
          'nejemplar' => $ejemplar,
          'tomo'=>$tomo,
-         'nficha'=>$ficha,  
+         'nficha'=>$ficha,
         );
-        if(!$this->findbynad($nad)) {
+        if (!$this->findbynad($nad)) {
             $data['nadqui'] = $nad;
             $data['created_at']=date("Y-m-d H:i:s");
             //$data['updated_at']= date("Y-m-d H:i:s");
             return $this->db->insert('ejemplar', $data);
-        }else{
+        } else {
             $this->db->where('nadui', $nad);
             return $this->db->update('ejemplar', $data);
         }
     }
     function eliminarnove($id)
     {
-        $this->db->where('idnovedad', $id); 
+        $this->db->where('idnovedad', $id);
         return $this->db->delete('novedades');
     }
-    function editarnove($novedad,$id)
+    function editarnove($novedad, $id)
     {
         $this->db->where('idnovedad', $id);
         return $this->db->update('novedades', $novedad);
@@ -37,22 +37,22 @@ Class Libro_model extends CI_Model
     //obtener materias
     function get_materias($idficha)
     {
-        $this->db->select('namemateria');      
+        $this->db->select('namemateria');
         $this->db->from('libros as et');
         $this->db->join('materialibro ml', 'ml.libro_id=et.idlibro');
-        $this->db->join('materias as m', 'ml.materia_id=m.idmateria'); 
+        $this->db->join('materias as m', 'ml.materia_id=m.idmateria');
         $this->db->where('et.idlibro', $idficha);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     //paginacion libros dados de baja
-    function obtener_datos($inicio=0,$cantidad=10,$nadqui=false,$cuenta=false,$tipo="")
+    function obtener_datos($inicio = 0, $cantidad = 10, $nadqui = false, $cuenta = false, $tipo = "")
     {
         $this->db->select('iddescarte,ed.nadqui,descartadopor,fechadescarte,observaciones,criterio,titulo');
         $this->db->from('ejemplaresdescartados as ed');
         $this->db->join('ejemplar', 'ed.nadqui=ejemplar.nadqui');
         $this->db->join('libros', 'ejemplar.nficha=libros.idlibro');
-        if($nadqui) {
+        if ($nadqui) {
             $this->db->where('ed.nadqui', $nadqui);
         }
         $this->db->limit($cantidad, $inicio);
@@ -62,25 +62,23 @@ Class Libro_model extends CI_Model
     //realziar consulta
     private function realizar_query($query)
     {
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }
-        else
-         {
+        } else {
             return false;
         }
     }
     function get_autores($idficha)
     {
-        $this->db->select('nameautor');      
+        $this->db->select('nameautor');
         $this->db->from('libros as et');
         $this->db->join('autorescribio ae', 'ae.libro_id=et.idlibro');
-        $this->db->join('autor as a', 'ae.autor_id=a.idautor'); 
+        $this->db->join('autor as a', 'ae.autor_id=a.idautor');
         $this->db->where('et.idlibro', $idficha);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
-    function baja($nadqui,$cuenta,$criterio,$obs)
+    function baja($nadqui, $cuenta, $criterio, $obs)
     {
         $id='des'.date('YmdHms').rand(1, 9).rand(1, 9);
         $data=array('iddescarte' =>$id,
@@ -88,7 +86,7 @@ Class Libro_model extends CI_Model
                     'fechadescarte'=>date("Y-m-d H:i:s"),
                     'observaciones'=>$obs,
                     'criterio'=>$criterio,
-                    'nadqui'=>$nadqui);  
+                    'nadqui'=>$nadqui);
         $this->db->trans_start();
         //cambia estado de ejemplar
         $this->db->set('status', '0', false);
@@ -97,7 +95,7 @@ Class Libro_model extends CI_Model
         $this->db->insert('ejemplaresdescartados', $data);
         //agregamos a tabla descartados
         $this->db->trans_complete();
-        return $this->db->trans_status(); 
+        return $this->db->trans_status();
     }
     function contar()
     {
@@ -105,7 +103,7 @@ Class Libro_model extends CI_Model
         $this->db->from("ejemplar");
         $this->db->where("ejemplar.status=1");
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function findbynad($nad)
     {
@@ -114,7 +112,7 @@ Class Libro_model extends CI_Model
         $this->db->where('nadqui', $nad);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function librosreciente()
     {
@@ -135,9 +133,9 @@ Class Libro_model extends CI_Model
         $this->db->select("max(nadqui) as nadqui");
         $this->db->from("ejemplar");
         $query = $this->db->get();
-        return $this->realizar_query($query);    
+        return $this->realizar_query($query);
     }
-    function show($inicio=0)
+    function show($inicio = 0)
     {
         $this->db->select('*');
         $this->db->from('ejemplar');
@@ -171,7 +169,7 @@ Class Libro_model extends CI_Model
         $this->db->from('ejemplar');
         $this->db->join('libros', 'ejemplar.nficha=libros.idlibro', "left");
         $this->db->join("autorescribio as ae", "ae.libro_id=libros.idlibro", "left");
-        $this->db->join('autor', 'autor.idautor=ae.autor_id', "left"); 
+        $this->db->join('autor', 'autor.idautor=ae.autor_id', "left");
         $this->db->join('clasificacion', 'libros.clasificacion_id=clasificacion.idclasificacion', "left");
         $this->db->where('nadqui', $nad);
         $this->db->where('ejemplar.status=1');
@@ -187,28 +185,29 @@ Class Libro_model extends CI_Model
         $this->db->where("dp.fechadev is null");
         $this->db->where("cuentausuario", $cuenta);
         $this->db->where("tipo", "E");
-        $query = $this->db->get();$total=0;
-        if($query->num_rows() > 0) {
+        $query = $this->db->get();
+        $total=0;
+        if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
-                $total=$row->total;    
+                $total=$row->total;
             }
         }
         return $total;
     }
-    function addprestamo($cuenta,$nadqui,$idprestamo,$idetalle,$fechaprestamo,$tipo="E")
+    function addprestamo($cuenta, $nadqui, $idprestamo, $idetalle, $fechaprestamo, $tipo = "E")
     {
         $fechadev=strcmp($tipo, "I")==0 ? date("Y-m-d H:i:s"):null;
-        if($this->findprestamoid($idprestamo)) {
+        if ($this->findprestamoid($idprestamo)) {
             return $this->insert_detalle_prestamo($idetalle, $nadqui, $idprestamo, $fechadev);
-        }else{
-            if($this->insert_prestamo($idprestamo, $fechaprestamo, $cuenta, $tipo)) {
+        } else {
+            if ($this->insert_prestamo($idprestamo, $fechaprestamo, $cuenta, $tipo)) {
 
                 return $this->insert_detalle_prestamo($idetalle, $nadqui, $idprestamo, $fechadev);
             }
         }
     }
       
-    function insert_detalle_prestamo($iddetalle,$nadqui,$idprestamo,$fechadev)
+    function insert_detalle_prestamo($iddetalle, $nadqui, $idprestamo, $fechadev)
     {
         $data=array(
               'iddetalleprestamo' =>$iddetalle,
@@ -218,7 +217,7 @@ Class Libro_model extends CI_Model
                'fechadev'=>$fechadev);
         return $this->db->insert('detalleprestamo', $data);
     }
-    function insert_prestamo($idprestamo,$fechaprestamo,$cuentausuario,$tipo)
+    function insert_prestamo($idprestamo, $fechaprestamo, $cuentausuario, $tipo)
     {
         $cuentausuario=strlen($cuentausuario)>0 ? $cuentausuario :null;
         $data=array('idprestamo'=>$idprestamo,
@@ -232,9 +231,9 @@ Class Libro_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from("prestamos");
-        $this->db->where('idprestamo', $idprestamo);  
+        $this->db->where('idprestamo', $idprestamo);
         $query = $this->db->get();
-        return $this->realizar_query($query);       
+        return $this->realizar_query($query);
     }
     function prestado($nadqui)
     {
@@ -255,11 +254,11 @@ end) as mensaje"
         $this->db->where("dp.nadqui", $nadqui);
         $this->db->where("tipo", "E");
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function bloquearejemplar($nadqui)
     {
-        if(!$this->bloqueado($nadqui)) {
+        if (!$this->bloqueado($nadqui)) {
             $data['idbloqueado']=date("YmdHis").$nadqui;
             $data['nadqui'] = $nadqui;
 
@@ -270,35 +269,35 @@ end) as mensaje"
       //desbloquear ejemplar
     function desbloquearejemplar($nadqui)
     {
-        if($this->bloqueado($nadqui)) {
-            $this->db->where('nadqui', $nadqui); 
+        if ($this->bloqueado($nadqui)) {
+            $this->db->where('nadqui', $nadqui);
             return $this->db->delete('librosbloqueados');
         }
     }
       //esta bloqueado?
     function bloqueado($nadqui)
     {
-        $query=$this->db->get_where('librosbloqueados', array('nadqui' =>$nadqui)); 
-        return $this->realizar_query($query); 
+        $query=$this->db->get_where('librosbloqueados', array('nadqui' =>$nadqui));
+        return $this->realizar_query($query);
     }
       //esta reservado?
     function reservado($nadqui)
-    { 
+    {
         $query=$this->db->query("select idreserva,cuentausuario,nadqui,date_add(fecha,interval 2 day) as limite  FROM reservas where nadqui='".$nadqui."'");
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
-      //eliminar reserva 
+      //eliminar reserva
     function eliminarreserva($nadqui)
     {
-        if($this->reservado($nadqui)) {
-            $this->db->where('nadqui', $nadqui); 
+        if ($this->reservado($nadqui)) {
+            $this->db->where('nadqui', $nadqui);
             return $this->db->delete('reservas');
         }
     }
       //poner en reparacion si no esta ya agregado
     function reparar($nadqui)
     {
-        if(!$this->reparacion($nadqui)) {
+        if (!$this->reparacion($nadqui)) {
             $data['idrep']=date("YmdHis").$nadqui;
             $data['nadqui'] = $nadqui;
             //$data['updated_at']= date("Y-m-d H:i:s");
@@ -308,16 +307,16 @@ end) as mensaje"
       //poner en disponible si esta en reparacion
     function disponible($nadqui)
     {
-        if($this->reparacion($nadqui)) {
-            $this->db->where('nadqui', $nadqui); 
+        if ($this->reparacion($nadqui)) {
+            $this->db->where('nadqui', $nadqui);
             return $this->db->delete('reparacion');
         }
     }
       //esta en reparacion?
     function reparacion($nadqui)
     {
-        $query=$this->db->get_where('reparacion', array('nadqui' =>$nadqui)); 
-        return $this->realizar_query($query); 
+        $query=$this->db->get_where('reparacion', array('nadqui' =>$nadqui));
+        return $this->realizar_query($query);
     }
       //buscar si la ficha ya esta registrada
     function findbyidjson($idficha)
@@ -335,17 +334,17 @@ end) as mensaje"
         return $this->realizar_query($query);
     }
     //retorna la consutla que se obtuvo mediante el parametro cons,limite de registros
-    // inicio de registro, contar para saber  el total al realizar la consuulta 
-    private function resultado($cons,$limite,$inicio,$contar='')
+    // inicio de registro, contar para saber  el total al realizar la consuulta
+    private function resultado($cons, $limite, $inicio, $contar = '')
     {
-        if(strcmp($contar, "contar")==0) {
+        if (strcmp($contar, "contar")==0) {
             $query = $cons->db->get();
-            return $query->num_rows(); 
-        }else{
+            return $query->num_rows();
+        } else {
             $this->db->limit($limite, $inicio);
             $query = $cons->db->get();
             return $this->realizar_query($query);
-        }  
+        }
     }
     // devuelve la consulta para obtener materias
     private function get_query_materia($materia)
@@ -353,19 +352,19 @@ end) as mensaje"
         $this->db->join('materialibro', 'materialibro.libro_id=libros.idlibro', 'left');
         $this->db->join('materias', 'materialibro.materia_id=materias.idmateria', "left");
         $this->db->like('namemateria', $materia, 'both');
-        return $this;   
+        return $this;
     }
-    function findajax($buscarpor,$inicio=0,$onlycont='',$materia='')
+    function findajax($buscarpor, $inicio = 0, $onlycont = '', $materia = '')
     {
         extract($buscarpor);
-        if(strlen($materia)>0) {
-            $this->get_query_materia($materia);     
+        if (strlen($materia)>0) {
+            $this->get_query_materia($materia);
         }
-        if($buscarejem) {
+        if ($buscarejem) {
             $select='*';
             $this->db->join('ejemplar', 'ejemplar.nficha=libros.idlibro');
             $this->db->where('ejemplar.status=1');
-        }else{
+        } else {
             $select='libros.idlibro as nfic,clasificacion,titulo,isbn';
         }
         $this->db->select($select);
@@ -384,10 +383,10 @@ end) as mensaje"
         $this->db->join('editoriales', 'editoriales.ideditorial=publica.editorial_id', "left");
         return $this;
     }
-    function findajaxuser($buscarpor,$materiab='',$inicio=0,$onlycont='')
+    function findajaxuser($buscarpor, $materiab = '', $inicio = 0, $onlycont = '')
     {
         extract($buscarpor);
-        if(strlen($materiab)>0) {
+        if (strlen($materiab)>0) {
             $this->get_query_materia($materiab);
         }
         $select='libros.idlibro as nfic,clasificacion,titulo,isbn,ejemplar.nadqui';
@@ -403,74 +402,73 @@ end) as mensaje"
     private function get_resultados_consulta($buscarpor)
     {
         extract($buscarpor);
-        if(strlen($titulo)>0 && strlen($autor)>0&&strlen($isbn)>0&&strlen($editorial)>0) {
+        if (strlen($titulo)>0 && strlen($autor)>0&&strlen($isbn)>0&&strlen($editorial)>0) {
             $this->db->where('match(titulo) against("'.$titulo.'")');
             $this->db->where('match(nameautor) against("'.$autor.'")');
             $this->db->like('isbn', $isbn, 'both');
             $this->db->like('nameeditorial', $editorial, 'both');
-        }elseif(strlen($titulo)>0&&strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)==0) {
+        } elseif (strlen($titulo)>0&&strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)==0) {
             $this->db->where("match(titulo) against('".$titulo."')");
             $this->db->where("match(nameautor) against('".$autor."')");
-        }elseif (strlen($titulo)==0&&strlen($autor)>0&&strlen($isbn)>0&&strlen($editorial)==0) {
+        } elseif (strlen($titulo)==0&&strlen($autor)>0&&strlen($isbn)>0&&strlen($editorial)==0) {
             $this->db->where('match(nameautor) against("'.$autor.'")');
             $this->db->like('isbn', $isbn, 'both');
-        }elseif(strlen($titulo)>0&&strlen($autor)==0&&strlen($isbn)>0&&strlen($editorial)==0) {
+        } elseif (strlen($titulo)>0&&strlen($autor)==0&&strlen($isbn)>0&&strlen($editorial)==0) {
             $this->db->like('isbn', $isbn, 'both');
             $this->db->where('match(titulo) against("'.$titulo.'")');
-        }elseif(strlen($titulo)>0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)==0) {
+        } elseif (strlen($titulo)>0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)==0) {
             $this->db->where('match(titulo) against("'.$titulo.'" IN BOOLEAN MODE)');
-        }elseif(strlen($titulo)==0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)==0) {
+        } elseif (strlen($titulo)==0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)==0) {
             $this->db->where('match(nameautor) against("'.$autor.'" IN BOOLEAN MODE )');
-        }elseif(strlen($titulo)>0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)>0) {
+        } elseif (strlen($titulo)>0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)>0) {
             $this->db->where('match(titulo) against("'.$titulo.'" IN BOOLEAN MODE)');
              $this->db->like('nameeditorial', $editorial, 'both');
-        }elseif(strlen($titulo)>0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)>0) {
+        } elseif (strlen($titulo)>0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)>0) {
             $this->db->where('match(titulo) against("'.$titulo.'")');
             $this->db->where('match(nameautor) against("'.$autor.'")');
             $this->db->like('nameeditorial', $editorial, 'both');
-        }elseif(strlen($titulo)==0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)>0) {   
+        } elseif (strlen($titulo)==0 && strlen($autor)>0&&strlen($isbn)==0&&strlen($editorial)>0) {
             $this->db->where('match(nameautor) against("'.$autor.'")');
-            $this->db->like('nameeditorial', $editorial, 'both');;
-        }elseif(strlen($titulo)==0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)>0) {   
             $this->db->like('nameeditorial', $editorial, 'both');
-        }elseif(strlen($isbn)>0) {
+            ;
+        } elseif (strlen($titulo)==0 && strlen($autor)==0&&strlen($isbn)==0&&strlen($editorial)>0) {
+            $this->db->like('nameeditorial', $editorial, 'both');
+        } elseif (strlen($isbn)>0) {
             $this->db->where('isbn', $isbn);
         }
         return $this;
     }
-    function numeejemplares($idficha,$volumen,$tomo)
+    function numeejemplares($idficha, $volumen, $tomo)
     {
-        $this->db->select('*'); 
-        $this->db->from('ejemplar'); 
+        $this->db->select('*');
+        $this->db->from('ejemplar');
         $this->db->where('nficha', $idficha);
-        $this->db->where('tomo', $tomo); 
+        $this->db->where('tomo', $tomo);
         $this->db->where('volumen', $volumen);
         $this->db->where('status', 1);
-        $this->db->group_by(array("nadqui","volumen", "tomo","nejemplar")); 
+        $this->db->group_by(array("nadqui","volumen", "tomo","nejemplar"));
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function ejemplar($ficha,$volumen,$tomo)
+    function ejemplar($ficha, $volumen, $tomo)
     {
         $this->db->select("max(nejemplar) as nejem");
         $this->db->from("ejemplar");
-        $this->db->where('nficha', $ficha); 
+        $this->db->where('nficha', $ficha);
         $this->db->where('volumen', $volumen);
         $this->db->where('tomo='.$tomo);
         $query = $this->db->get();
-        if($query->num_rows()== 1) {
+        if ($query->num_rows()== 1) {
             return $query->result();
-        }
-        else
-        {
+        } else {
             return false;
-        }    
+        }
     }
-    function ultimousointer($nadqui,$tipo)
+    function ultimousointer($nadqui, $tipo)
     {
         return $this->get_prestamos_uso_total_query('max(date(fechaprestamo)) as dia', $nadqui, $tipo);
     }
-    private function get_prestamos_uso_total_query($select,$nadqui,$tipo)
+    private function get_prestamos_uso_total_query($select, $nadqui, $tipo)
     {
         $this->db->select($select);
         $this->db->from("prestamos");
@@ -481,28 +479,28 @@ end) as mensaje"
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function totalprestamointerno($nadqui,$tipo)
+    function totalprestamointerno($nadqui, $tipo)
     {
         return $this->get_prestamos_uso_total_query('count(*) as total', $nadqui, $tipo);
     }
     function adquisiciones($cuenta)
     {
         $materias=$this->get_materias_users($cuenta);
-        if($materias) {
+        if ($materias) {
             return $this->recomendapormaterias($materias);
-        }else{
+        } else {
             return false;
         }
     }
     function temasejemplarreocmendar($nadqui)
     {
         $materias=$this->get_materias_nadqui($nadqui);
-        if($materias) {
+        if ($materias) {
             return $this->recomendapormaterias($materias, $nadqui);
-        }else{
+        } else {
             return false;
         }
-    } 
+    }
     private function remplazar($materia)
     {
         $materia = str_replace(
@@ -519,24 +517,24 @@ end) as mensaje"
         );
               return $materia;
     }
-    private function recomendapormaterias($materias,$nadqui="")
+    private function recomendapormaterias($materias, $nadqui = "")
     {
          $and=" ";
          $andmaterias="";
-        if($materias) {
+        if ($materias) {
             $cont=0;
             $andmaterias="namemateria";
             foreach ($materias as $materia) {
                 $materia=$this->remplazar($materia->namemateria);
-                if($cont==0) {
+                if ($cont==0) {
                     $andmaterias.="='".$materia."'";
-                }else{
+                } else {
                     $andmaterias.=" or namemateria='".$materia."'";
                 }
                 $cont++;
             }
         }
-        if($nadqui) {
+        if ($nadqui) {
             $and=" and ej.nadqui!=".$nadqui;
         }
             //agregado 2016-02-04: 11:56 join autoriescribio y autor
@@ -593,15 +591,15 @@ join autor on autor.idautor=ae.autor_id
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function novedadsubir($titulo,$nomin,$desc,$nadqui)
+    function novedadsubir($titulo, $nomin, $desc, $nadqui)
     {
-        if(!$this->nadquinove($nadqui)) {
+        if (!$this->nadquinove($nadqui)) {
             $data['idnovedad']=date('YmdHis');
             $data['nadqui']=$nadqui;
             $data['descripcion']=$desc;
             $data['imagen']=$nomin;
             return $this->db->insert('novedades', $data);
-        }else{
+        } else {
             return "Novedad ya registrada";
         }
     }
@@ -639,14 +637,13 @@ join autor on autor.idautor=ae.autor_id
         $this->db->select('count(*) as total');
         $this->db->from("novedades");
         $query = $this->db->get();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                   return $row->total;
-            }  
-        }
-        else{
+            }
+        } else {
             return false;
-        } 
+        }
     }
     function prueba_acces()
     {
@@ -742,13 +739,10 @@ group by case
     }
     private function realizar_querya_array($query)
     {
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result_array();
-        }
-        else
-         {
+        } else {
             return false;
         }
     }
 }
-

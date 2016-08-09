@@ -1,7 +1,7 @@
 <?php
-Class Autor_model extends CI_Model
+class Autor_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -34,7 +34,7 @@ Class Autor_model extends CI_Model
         $this->db->like("namemateria", $name, "after");
         $this->db->limit(10);
         $query=$this->db->get();
-        return $this->realizar_query($query);   
+        return $this->realizar_query($query);
     }
     function contar_libros_by_autor($nameautor)
     {
@@ -44,7 +44,7 @@ Class Autor_model extends CI_Model
         $this->db->join('autor', 'ae.autor_id=autor.idautor');
         $this->db->where("nameautor", $nameautor);
         $query=$this->db->get();
-        return $this->realizar_query($query);  
+        return $this->realizar_query($query);
     }
     function contar_libros_by_materia($name)
     {

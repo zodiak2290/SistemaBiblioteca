@@ -1,13 +1,13 @@
 <?php
-Class Actividad_model extends CI_Model
+class Actividad_model extends CI_Model
 {
     var $mnjactividadregistrada="Actividad ya registrada";
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
     //FUNCIÓN PARA INSERTAR LOS DATOS DE LA IMAGEN SUBIDA
-    function diasactividad($dia,$idactividad,$cont)
+    function diasactividad($dia, $idactividad, $cont)
     {
         $actividad=$this->find_by_id($idactividad);
         $dirigidoa="";
@@ -24,17 +24,17 @@ Class Actividad_model extends CI_Model
     private function crearactividad($datos)
     {
         extract($datos);
-        if(!$this->verificarevento($idactividad, $dia->dia)) {
+        if (!$this->verificarevento($idactividad, $dia->dia)) {
             $data['actividad_id']=$idactividad;
             $data['idactividadesdia']=$idactividad.$cont;
             $data['dia']=$dia->dia;
             $data['asistencia']=0;
             return $this->db->insert('actividadesdia', $data);
-        }else{
+        } else {
             return $this->mnjactividadregistrada;
-        } 
+        }
     }
-    function update($actividad,$id)
+    function update($actividad, $id)
     {
         $this->db->where('idactividad', $id);
         return $this->db->update('actividades', $actividad);
@@ -42,7 +42,7 @@ Class Actividad_model extends CI_Model
     private function crearregistro($datos)
     {
         extract($datos);
-        if(!$this->verificarregistro($idactividad, $dia->dia)) {
+        if (!$this->verificarregistro($idactividad, $dia->dia)) {
             $data['actividadid']=$idactividad;
             $lav=str_replace("-", "", $dia->dia);
             $data['idregistroactividadte']=$idactividad.$lav;
@@ -51,11 +51,11 @@ Class Actividad_model extends CI_Model
             $data['jovenes']=0;
             $data['ninos']=0;
             return $this->db->insert('registroactividadte', $data);
-        }else{
+        } else {
             return $this->mnjactividadregistrada;
-        } 
+        }
     }
-    function verificarregistro($actividad_id,$dia)
+    function verificarregistro($actividad_id, $dia)
     {
         $this->db->select('*');
         $this->db->from('registroactividadte');
@@ -85,26 +85,26 @@ Class Actividad_model extends CI_Model
         return $this->realizar_query($query);
     }
   
-    function registroactividadte($valor,$id,$tipo)
+    function registroactividadte($valor, $id, $tipo)
     {
-        if(strcmp($tipo, "ninos")==0) {
-            $data['ninos']= $valor; 
-        }else if(strcmp($tipo, "jovenes")==0) {
+        if (strcmp($tipo, "ninos")==0) {
+            $data['ninos']= $valor;
+        } elseif (strcmp($tipo, "jovenes")==0) {
             $data['jovenes']= $valor;
-        }else if (strcmp($tipo, "adultos")==0) {
+        } elseif (strcmp($tipo, "adultos")==0) {
             $data['adultos']=$valor;
         }
           $this->db->where('idregistroactividadte', $id);
           return $this->db->update('registroactividadte', $data);
     }
-    function registroactividad($valor,$id)
+    function registroactividad($valor, $id)
     {
         $data['asistencia']= $valor;
         $data['registrado']=1;
         $this->db->where('idactividadesdia', $id);
         return $this->db->update('actividadesdia', $data);
     }
-    function verificarevento($actividad_id,$dia)
+    function verificarevento($actividad_id, $dia)
     {
         $this->db->select('*');
         $this->db->from('actividadesdia');
@@ -113,14 +113,14 @@ Class Actividad_model extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function actividadesmes($cont=0,$dia="")
+    function actividadesmes($cont = 0, $dia = "")
     {
         $where=(strlen($dia)>0)?"and day(dia)=".$dia:" ";
         $this->load->library('periodos');
         $nombredias=$this->periodos->get_nombredia("actividadesdia.dia", "periodo");
         $mes=$this->periodos->get_nombre_mes("actividadesdia.dia", "mes");
         $nombredia=$this->periodos->get_nombredia("registroactividadte.dia", "periodo");
-        $me=$this->periodos->get_nombre_mes("registroactividadte.dia", "mes");   
+        $me=$this->periodos->get_nombre_mes("registroactividadte.dia", "mes");
         $query=$this->db->query(
             "
         select idactividad,nombre, descripcion,imagen,
@@ -129,7 +129,7 @@ Class Actividad_model extends CI_Model
         FROM actividades
         join actividadesdia on actividades.idactividad=actividadesdia.actividad_id 
         where year(actividadesdia.dia)=year(now())
-        and month(actividadesdia.dia)=month(now()) ".$where. 
+        and month(actividadesdia.dia)=month(now()) ".$where.
             " and dia>date_sub( now(),interval 1 day)
         union all
         SELECT idactividad,nombre,descripcion,imagen,horainicio,horafin,".$nombredia.","
@@ -173,24 +173,25 @@ Class Actividad_model extends CI_Model
         $result=$this->realizar_query($query);
         $total=0;
         foreach ($result as $toal) {
-            $total=$toal->total;  
-        }  
-        return  $result ? $total  :0; 
+            $total=$toal->total;
+        }
+        return  $result ? $total  :0;
     }
     function total_actividades_by_evento($idactividad)
     {
-        $this->db->select('count(*) as total'); 
-        $this->db->from('actividadesdia'); 
+        $this->db->select('count(*) as total');
+        $this->db->from('actividadesdia');
         $this->db->where('actividad_id', $idactividad);
         $query = $this->db->get();
-        return $this->get_total($query);  
+        return $this->get_total($query);
     }
-    function show($inicio=0,$contar,$anio)
+    function show($inicio = 0, $contar, $anio)
     {
-        $where=" ";$and=" ";
-        if(isset($anio)) {
+        $where=" ";
+        $and=" ";
+        if (isset($anio)) {
             $where=" where year(actividadesdia.dia)=".$anio;
-            $and="   where year(registroactividadte.dia)=".$anio; 
+            $and="   where year(registroactividadte.dia)=".$anio;
         }
         $query=$this->db->query(
             "select idactividad,nombre,actividad_id,dirigidoa, dia,horainicio,horafin,
@@ -210,7 +211,7 @@ Class Actividad_model extends CI_Model
         FROM actividades
         join registroactividadte on actividades.idactividad=registroactividadte.actividadid
          ".$and."   
-         order by dia" 
+         order by dia"
         );
         return (strcmp($contar, "contar")==0) ?$query->num_rows():$this->realizar_query($query);
     }
@@ -218,16 +219,16 @@ Class Actividad_model extends CI_Model
     {
         $actividad=$this->find_by_id($idactividad);
             $dirigidoa="";
-        if($actividad) {
+        if ($actividad) {
             foreach ($actividad as $row) {
                 $dirigidoa=$row->dirigidoa;
             }
         }
         $this->db->select('*');
         $this->db->from('actividades');
-        if(strcmp($dirigidoa, "te")==0) {
+        if (strcmp($dirigidoa, "te")==0) {
             $this->db->join('registroactividadte', 'actividades.idactividad=registroactividadte.actividadid');
-        }else{
+        } else {
             $this->db->join('actividadesdia', 'actividades.idactividad=actividadesdia.actividad_id');
         }
         $this->db->where('idactividad', $idactividad);
@@ -242,9 +243,9 @@ Class Actividad_model extends CI_Model
         $this->db->from('actividades');
         $this->db->where('idactividad', $idactividad);
          $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
-    function subir($titulo,$imagen,$descripcion,$cuenta,$dirigido,$lugar,$inicio,$fin)
+    function subir($titulo, $imagen, $descripcion, $cuenta, $dirigido, $lugar, $inicio, $fin)
     {
         $id='a'.date('YmdHms').rand(1, 9).rand(1, 9).rand(1, 9);
         $data = array(
@@ -259,9 +260,9 @@ Class Actividad_model extends CI_Model
          'horainicio'=>$inicio,
          'horafin'=>$fin
         );
-        return ($this->db->insert('actividades', $data)) ? $id:false; 
+        return ($this->db->insert('actividades', $data)) ? $id:false;
     }
-    function updateimage($id,$image)
+    function updateimage($id, $image)
     {
         $data['imagen']= $image;
         $this->db->where('idactividad', $id);
@@ -269,19 +270,17 @@ Class Actividad_model extends CI_Model
     }
     function delete($id)
     {
-        $this->db->where('idactividad', $id); 
-        return $this->db->delete('actividades'); 
+        $this->db->where('idactividad', $id);
+        return $this->db->delete('actividades');
     }
     function deletera($id)
     {
-        $this->db->where('idregistroactividadte', $id); 
+        $this->db->where('idregistroactividadte', $id);
         return $this->db->delete('registroactividadte');
     }
     function deleteac($id)
     {
-        $this->db->where('idactividadesdia', $id); 
+        $this->db->where('idactividadesdia', $id);
         return $this->db->delete('actividadesdia');
     }
-    
 }
-

@@ -1,7 +1,7 @@
 <?php
-Class Ficha_model extends CI_Model
+class Ficha_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -12,11 +12,9 @@ Class Ficha_model extends CI_Model
         $this->db->where('nameautor', $name);
         $this->db->limit(1);
         $query=$this->db->get();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
                return $query->result();
-        }
-        else
-        {
+        } else {
             $this->insertaautor($name);
             $this->findautorbyname($name);
         }
@@ -28,9 +26,9 @@ Class Ficha_model extends CI_Model
         $this->db->where('nameautor', $name);
         $this->db->limit(1);
         $query=$this->db->get();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
              return $query->result();
-        }else{
+        } else {
             return false;
         }
 
@@ -42,11 +40,9 @@ Class Ficha_model extends CI_Model
         $this->db->where('clasificacion', $clasificacion);
         $this->db->limit(1);
         $query=$this->db->get();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
              return $query->result();
-        }
-        else
-        {
+        } else {
             $this->insertarclasificacio($clasificacion);
             $this->findclasificacion($clasificacion);
         }
@@ -73,62 +69,60 @@ Class Ficha_model extends CI_Model
             "SELECT * FROM materias 
             where binary namemateria='".$name."'"
         );
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
                return $query->result();
-        }
-        else
-        {
+        } else {
             $this->insertamateria($name);
             $this->findmateriabyname($name);
         }
     }
-    function obtener_propiedad_por_nombre($name,$tabla,$campo)
+    function obtener_propiedad_por_nombre($name, $tabla, $campo)
     {
         $query=$this->db->query("SELECT * FROM ".$tabla." where binary ".$campo."='".$name."' limit 1");
         return ($query->num_rows() > 0)? $query->result():false;
     }
-    function insertaautorescribio($idescribio,$idautor,$idlibro)
+    function insertaautorescribio($idescribio, $idautor, $idlibro)
     {
         $data['libro_id']=$idlibro;
         $data['idescribio']=$idescribio;
         $data['autor_id']=$idautor;
-        return $this->insertar_relacion($data, 'autorescribio'); 
+        return $this->insertar_relacion($data, 'autorescribio');
     }
-    function insertafichatema($idfichatema,$idmateria,$idficha)
+    function insertafichatema($idfichatema, $idmateria, $idficha)
     {
-        if(isset($idfichatema)&&isset($idmateria)&&isset($idficha)) {
-            if(strlen($idfichatema)>0&&strlen($idmateria)>0&&strlen($idficha)>0) {
+        if (isset($idfichatema)&&isset($idmateria)&&isset($idficha)) {
+            if (strlen($idfichatema)>0&&strlen($idmateria)>0&&strlen($idficha)>0) {
                 $data['libro_id']=$idficha;
                 $data['idmaterialibro']=$idfichatema;
                 $data['materia_id']=$idmateria;
                 return $this->insertar_relacion($data, 'materialibro');
             }
-        } 
+        }
     }
-    function insertar_relacion($data,$tabla)
+    function insertar_relacion($data, $tabla)
     {
         return $this->db->insert($tabla, $data);
     }
-    function insertapublicacion($idpublica,$ideditorial,$idficha)
+    function insertapublicacion($idpublica, $ideditorial, $idficha)
     {
         $data['libro_id']=$idficha;
         $data['idpublica']=$idpublica;
         $data['editorial_id']=$ideditorial;
-        return $this->db->insert('publica', $data); 
+        return $this->db->insert('publica', $data);
     }
 
  
     function fichatema($idfichatema)
     {
-        return $this->existe_relacion('materialibro', 'idmaterialibro', $idfichatema); 
+        return $this->existe_relacion('materialibro', 'idmaterialibro', $idfichatema);
     }
-    function existe_relacion($tabla,$campo,$id)
+    function existe_relacion($tabla, $campo, $id)
     {
         $this->db->select('*');
         $this->db->from($tabla);
         $this->db->where($campo, $id);
         $query=$this->db->get();
-        return ($query->num_rows()>0) ? true :false; 
+        return ($query->num_rows()>0) ? true :false;
     }
     function autorescribio($idescribio)
     {
@@ -141,17 +135,17 @@ Class Ficha_model extends CI_Model
         $this->db->from('publica');
         $this->db->where('idpublica', $idedit);
         $query=$this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    function eliminarrelacion($idmateria,$id,$tabla)
+    function eliminarrelacion($idmateria, $id, $tabla)
     {
-        $this->db->where($id, $idmateria); 
-        return $this->db->delete($tabla); 
+        $this->db->where($id, $idmateria);
+        return $this->db->delete($tabla);
     }
     function findbyidficha($idf)
     {
@@ -160,42 +154,41 @@ Class Ficha_model extends CI_Model
         $this->db->where('idlibro', $idf);
         $this->db->limit(1);
         $query = $this->db->get();
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }else
-        {
+        } else {
             return false;
         }
-    }   
+    }
     function agregalibro($libro)
     {
-        if(!$this->findbyidficha($libro['idlibro'])) {
+        if (!$this->findbyidficha($libro['idlibro'])) {
             return $this->db->insert('libros', $libro);
-        }else{
+        } else {
             $this->db->where('idlibro', $libro['idlibro']);
             return $this->db->update('libros', $libro);
         }
     }
-    function editar_propiedad($idautor,$nuevoname,$campo,$tabla,$id)
+    function editar_propiedad($idautor, $nuevoname, $campo, $tabla, $id)
     {
           $data[$campo]=strtolower($nuevoname);
           $this->db->where($id, $idautor);
           return $this->db->update($tabla, $data);
     }
     function eliminarautor($idautor)
-    { 
-        $this->db->where('idautor', $idautor); 
-        return $this->db->delete('autor'); 
+    {
+        $this->db->where('idautor', $idautor);
+        return $this->db->delete('autor');
     }
     function eliminarmateria($idmateria)
     {
-        $this->db->where('idmateria', $idmateria); 
-        return $this->db->delete('materias');  
+        $this->db->where('idmateria', $idmateria);
+        return $this->db->delete('materias');
     }
-    function editarmateria($idmateria,$nuevoname)
+    function editarmateria($idmateria, $nuevoname)
     {
           $data['namemateria']=strtolower($nuevoname);
           $this->db->where('idmateria', $idmateria);
-          return $this->db->update('materias', $data); 
+          return $this->db->update('materias', $data);
     }
 }

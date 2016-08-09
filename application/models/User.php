@@ -1,5 +1,5 @@
 <?php
-Class User extends CI_Model
+class User extends CI_Model
 {
     var $caseclasificacion="case  when clasificacion rlike '^[0][0-9][0-9]' then 'Generalidades'
                 when clasificacion rlike '^[1][0-9][0-9]' then 'Filosofia'
@@ -20,7 +20,7 @@ Class User extends CI_Model
           when clasificacion rlike '^dvd' then 'DVD'
                  when clasificacion rlike '^VC' then 'Videograbacion' 
           */
-    function editadmin($user,$cuenta)
+    function editadmin($user, $cuenta)
     {
         $this->db->where('cuenta', $cuenta);
         return $this->db->update('empleados', $user);
@@ -31,13 +31,11 @@ Class User extends CI_Model
         $this->db->from('empleados');
         $this->db->where('cuenta', $cuenta);
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
-                return $row->password_d;    
+                return $row->password_d;
             }
-        }           
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -47,29 +45,27 @@ Class User extends CI_Model
         $this->db->from('empleados');
         $this->db->where('rol=1');
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
                 // code...
-                return $row->email;    
+                return $row->email;
             }
-        }           
-        else
-        {
+        } else {
             return false;
         }
     }
-    function actualizarIntento($cuenta,$acion,$campo,$tabla)
+    function actualizarIntento($cuenta, $acion, $campo, $tabla)
     {
-        if($acion) {
+        if ($acion) {
             $this->db->set('intentos', 'intentos+1', false);
             $this->db->set('fechaintento', 'now()', false);
-        }else{
+        } else {
             $this->db->set('intentos', '0', false);
-        } 
+        }
         $this->db->where($campo, $cuenta);
         $this->db->update($tabla);
     }
-    function get_intentos_fecha($cuenta,$tipousuario,$name)
+    function get_intentos_fecha($cuenta, $tipousuario, $name)
     {
         $query = $this->db->get_where($tipousuario, array($name => $cuenta));
         return  $this->realizar_query($query);
@@ -91,12 +87,12 @@ Class User extends CI_Model
     {
         return ($query->num_rows()== 1) ?  $query->result() :false;
     }
-    function editpass($usuario,$cuenta)
+    function editpass($usuario, $cuenta)
     {
         $this->db->where('cuenta', $cuenta);
         return $this->db->update('empleados', $usuario);
     }
-    function loginandroi($cuenta,$password)
+    function loginandroi($cuenta, $password)
     {
         $this->db->select('cuentausuario, pnombre,curp ');
         $this->db->from("personas");
@@ -105,33 +101,31 @@ Class User extends CI_Model
         $this->db->where('password_d', MD5($password));
         $this->db->limit(1);
         $query = $this->db->get();
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
-    function is_usuariob($cuenta,$password)
-    { 
+    function is_usuariob($cuenta, $password)
+    {
         $this->db->select('cuentausuario, pnombre,curp ');
         $this->db->from("personas");
         $this->db->join("usuariobiblio", "personas.curp=usuariobiblio.pcurp");
-        if(is_numeric($cuenta)) {
+        if (is_numeric($cuenta)) {
             $this->db->where("cuentausuario", intval($cuenta));
-        }else{
+        } else {
             $this->db->where("email", $cuenta);
         }
         $this->db->where('password_d', MD5($password));
         $this->db->limit(1);
         $query = $this->db->get();
-        if($query->num_rows()==1) {
+        if ($query->num_rows()==1) {
             $datouser['datos']=$query->result();
             $datouser['rol']=7;
             return $datouser;
-        }
-        else
-        {
+        } else {
             return false;
-        } 
+        }
     }
 
-    function usuariode($cuentausuario,$password)
+    function usuariode($cuentausuario, $password)
     {
         $this->db->select('cuenta as cuentausuario,nombre as pnombre,curp,rol');
         $this->db->from("empleados");
@@ -141,7 +135,7 @@ Class User extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function emailid($email,$cuenta)
+    function emailid($email, $cuenta)
     {
         $this->db->select('*');
         $this->db->from('empleados');
@@ -149,7 +143,7 @@ Class User extends CI_Model
         $this->db->where('cuenta!=', $cuenta);
         $this->db->limit(1);
         $query = $this->db->get();
-        return ($query->num_rows() > 0) ? true :false;  
+        return ($query->num_rows() > 0) ? true :false;
     }
     function email($email)
     {
@@ -158,7 +152,7 @@ Class User extends CI_Model
         $this->db->where('email', $email);
         $this->db->limit(1);
         $query = $this->db->get();
-        return ($query->num_rows() > 0) ? true :false;  
+        return ($query->num_rows() > 0) ? true :false;
     }
 
     function login($cuentausuario, $password)
@@ -178,13 +172,11 @@ Class User extends CI_Model
         $this->db->from('usuariobiblio');
         $this->db->where('cuentausuario', intval($cuenta));
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
-                return $row->password_d;    
+                return $row->password_d;
             }
-        }           
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -225,7 +217,7 @@ join grupouser as gp on gp.user_id=per.curp
 join grupos as g on g.idgrupo=gp.grupo_id
 where dp.fechadev is null
 and ub.cuentausuario='";
-    function get_consultaprestamos($cuenta,$tipo)
+    function get_consultaprestamos($cuenta, $tipo)
     {
         return "select iddetalleprestamo,titulo,contreno,fechaprestamo,cantlibros,tipo,
 DATE_ADD(date(fechaprestamo),interval (diasentrega+(renovacion*contreno) )  day) as entrega,
@@ -241,7 +233,7 @@ join grupos as g on g.idgrupo=gp.grupo_id
 where tipo='".$tipo."'
 and ub.cuentausuario='".$cuenta."'";
     }
-    function get_datos_prestamos_usuarui($cuenta,$tipo)
+    function get_datos_prestamos_usuarui($cuenta, $tipo)
     {
         $query=$this->db->query($this->get_consultaprestamos($cuenta, $tipo));
           return ($query->num_rows() > 0) ? $query->result() :false;
@@ -263,34 +255,32 @@ and ub.cuentausuario='".$cuenta."'";
     private function diasentrega($cuenta)
     {
         $this->db->select("diasentrega");
-        $this->db->from("usuariobiblio as ub"); 
-        $this->db->join("grupouser", "grupouser.user_id=ub.cuentausuario"); 
+        $this->db->from("usuariobiblio as ub");
+        $this->db->join("grupouser", "grupouser.user_id=ub.cuentausuario");
         $this->db->join("grupos ", "grupos.idgrupo=grupouser.grupo_id");
         $this->db->where("cuentausuario", $cuenta);
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
                 return $row->diasentrega;
-            }  
-        }                
-        else
-        {
+            }
+        } else {
             return false;
         }
     }
 
     function userbloqueado($cuenta)
     {
-        $query=$this->db->get_where('userbloqueados', array('cuentauser' =>$cuenta)); 
-        return $this->realizar_query($query); 
+        $query=$this->db->get_where('userbloqueados', array('cuentauser' =>$cuenta));
+        return $this->realizar_query($query);
     }
     function desbloquearuser($cuenta)
     {
-        return $this->db->delete('userbloqueados', array('cuentauser' => $cuenta)); 
+        return $this->db->delete('userbloqueados', array('cuentauser' => $cuenta));
     }
-    function bloquearuser($cuenta,$observaciones)
+    function bloquearuser($cuenta, $observaciones)
     {
-        if(!$this->userbloqueado($cuenta)) {
+        if (!$this->userbloqueado($cuenta)) {
             $data = array(
              'iduserbloqueado' => date("YmdHis").rand(1, 9).rand(1, 9),
              'cuentauser' => $cuenta,
@@ -301,8 +291,8 @@ and ub.cuentausuario='".$cuenta."'";
     }
     function is_userbiblio($cuenta)
     {
-        $query=$this->db->get_where('usuariobiblio', array('cuentausuario' =>intval($cuenta))); 
-        return $this->realizar_query($query); 
+        $query=$this->db->get_where('usuariobiblio', array('cuentausuario' =>intval($cuenta)));
+        return $this->realizar_query($query);
     }
     function multas($cuenta)
     {
@@ -318,7 +308,7 @@ and ub.cuentausuario='".$cuenta."'";
     where pagado is null
     and ub.cuentausuario='".$cuenta."'"
         );
-        return ($query->num_rows()>0) ? $query->result() : false; 
+        return ($query->num_rows()>0) ? $query->result() : false;
     }
     function total_multa_saldo($cuenta)
     {
@@ -355,19 +345,17 @@ and ub.cuentausuario='".$cuenta."'";
             where cuentausuario='".$cuenta."' 
             group by cuentausuario;"
         );
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             $total=0;
             foreach ($query->result() as $row) {
                 $total=$row->total;
             }
             return ($total+1<3) ? true :false;
-        }
-        else
-        {
+        } else {
             return true;
-        } 
+        }
     }
-    function preferenciasusuario($cuenta,$tipo)
+    function preferenciasusuario($cuenta, $tipo)
     {
         $query=$this->db->query(
             "select (".$this->caseclasificacion.") 
@@ -384,5 +372,3 @@ and ub.cuentausuario='".$cuenta."'";
           return $query->num_rows()>0 ? $query->result() :false;
     }
 }
-
-

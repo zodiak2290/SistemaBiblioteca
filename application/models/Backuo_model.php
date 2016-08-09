@@ -1,7 +1,7 @@
 <?php
-Class Backuo_model extends CI_Model
+class Backuo_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
@@ -18,19 +18,16 @@ Class Backuo_model extends CI_Model
         ini_set('memory_limit', '512M');
         set_time_limit(2000);
         //get all of the tables
-        if(count($tables) == 0 ) {
+        if (count($tables) == 0) {
             $tables = array();
             $query = $this->db->query('SHOW TABLES');
-            if ($query->num_rows() > 0 ) {
+            if ($query->num_rows() > 0) {
                 $field_name = 'Tables_in_' . $this->db->database;
-                foreach ( $query->result() as $item )
-                {
+                foreach ($query->result() as $item) {
                     array_push($tables, $item->$field_name);
-                }   
+                }
             }
-        }
-        else
-        {
+        } else {
             $tables = is_array($tables) ? $tables : explode(',', $tables);
         }
         //cycle through
@@ -46,8 +43,7 @@ Class Backuo_model extends CI_Model
         /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
         /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;";
         $return.="\n\n";
-        foreach($tables as $table)
-        {
+        foreach ($tables as $table) {
             $query = $this->db->get($table);
                 $return.= 'DROP TABLE IF EXISTS `' . $table . '`;';
                 $query_create = $this->db->query("SHOW CREATE TABLE `$table`");
@@ -58,23 +54,21 @@ Class Backuo_model extends CI_Model
                 $return.="LOCK TABLES `". $table ."` WRITE;\n";
                 $return.="/*!40000 ALTER TABLE `".$table."` DISABLE KEYS */;\n";
              
-            if ($query->num_rows() > 0 ) {
+            if ($query->num_rows() > 0) {
 
                 $con=0;
-                foreach ( $query->result() as $row )
-                {
+                foreach ($query->result() as $row) {
                     $values = array();
-                    foreach ( $row as $field=>$value )
-                    {
+                    foreach ($row as $field => $value) {
                         array_push($values, $this->db->escape($value));
                     }
-                    if($con==0) {
+                    if ($con==0) {
                         $return.="INSERT INTO `".$table."` VALUES(" . implode(',', $values) .  ")";
                         $con+=1;
-                    }elseif($con<3000) {
+                    } elseif ($con<3000) {
                         $return.=",(" . implode(',', $values) .  ")";
                         $con+=1;
-                    }else{
+                    } else {
                         $return.=",(" . implode(',', $values) .  ");\n";
                         $con=0;
                     }
@@ -138,25 +132,24 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 " ;
-        if ($save_to === false ) { if ($compress === true ) { return gzencode($return); 
-        } else { return $return; 
-        } 
-        }
-        else
-        {
+        if ($save_to === false) {
+            if ($compress === true) {
+                return gzencode($return);
+            } else {
+                return $return;
+            }
+        } else {
             $handle  = fopen($save_to, 'w');
-            if ($handle !== false ) {
-                if ($compress === false ) { fwrite($handle, $return); 
-                }
-                else { fwrite($handle, gzencode($return)); 
+            if ($handle !== false) {
+                if ($compress === false) {
+                    fwrite($handle, $return);
+                } else {
+                    fwrite($handle, gzencode($return));
                 }
                 fclose($handle);
-            }
-            else
-            {
+            } else {
                 exit("Error!! Can't write to file with path '$return'");
             }
         }
     }
-
 }

@@ -1,23 +1,22 @@
 <?php
-Class Empleado_model extends CI_Model
+class Empleado_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
         parent::__construct();
     }
     //FUNCIÓN PARA INSERTAR LOS DATOS DE LA IMAGEN SUBIDA
     private function get_rol($area)
     {
-        if(strcmp($area, "analistas")==0) {
+        if (strcmp($area, "analistas")==0) {
             $rol=2;
-        }else if(strcmp($area, "difusores")==0) {
+        } elseif (strcmp($area, "difusores")==0) {
             $rol=4;
-        }else if(strcmp($area, "prestador")==0) {
+        } elseif (strcmp($area, "prestador")==0) {
             $rol=3;
-        }
-        else if(strcmp($area, "encargadosala")==0) {
+        } elseif (strcmp($area, "encargadosala")==0) {
             $rol=5;
-        }else if(strcmp($area, "recepcion")==0) {
+        } elseif (strcmp($area, "recepcion")==0) {
             $rol=6;
         }
         return $rol;
@@ -37,7 +36,7 @@ Class Empleado_model extends CI_Model
     function existetoken($token)
     {
         $query=$this->db->query("select *,date_add(creado,interval 30 minute) as caducidad from users where token='".$token."'");
-        return $this->realizar_query($query); 
+        return $this->realizar_query($query);
     }
     function existeidusuario($idusuario)
     {
@@ -45,14 +44,14 @@ Class Empleado_model extends CI_Model
         $this->db->from("users");
         $this->db->where("idusuario", $idusuario);
         $query = $this->db->get();
-        return $this->realizar_query($query);  
+        return $this->realizar_query($query);
     }
     function deleteuser($curp)
     {
-        $this->db->where('idusuario', $curp); 
-        return $this->db->delete("users"); 
+        $this->db->where('idusuario', $curp);
+        return $this->db->delete("users");
     }
-    function inserttemp($iduser,$curp,$cuenta,$token)
+    function inserttemp($iduser, $curp, $cuenta, $token)
     {
         $data['iduser']=$iduser;
         $data['idusuario']=$curp;
@@ -61,42 +60,42 @@ Class Empleado_model extends CI_Model
         $data['creado']=date("Y-m-d H:i:s");
         return $this->db->insert('users', $data);
     }
-    function deleteem($tabla,$id)
+    function deleteem($tabla, $id)
     {
-        $this->db->where('curp', $id); 
-        return $this->db->delete("empleados"); 
+        $this->db->where('curp', $id);
+        return $this->db->delete("empleados");
     }
-    function show($inicio=0,$contar,$arwhere)
+    function show($inicio = 0, $contar, $arwhere)
     {
         $rol=$this->get_rol($arwhere);
-        if(is_int($inicio)) {
+        if (is_int($inicio)) {
             $query=$this->db->query(
                 "select curp as id, cuenta,nombre FROM empleados where rol=".$rol."
           limit ".$inicio.",10"
             );
-            if(strcmp($contar, "contar")==0) {
-                return $query->num_rows(); 
-            }else{
+            if (strcmp($contar, "contar")==0) {
+                return $query->num_rows();
+            } else {
                 return $this->realizar_query($query);
             }
-        } 
+        }
     }
-    function editpass($usuario,$tabla,$id)
+    function editpass($usuario, $tabla, $id)
     {
         $this->db->where('curp', $id);
         return $this->db->update("empleados", $usuario);
     }
-    public function get_pass($tabla,$id)
+    public function get_pass($tabla, $id)
     {
         $this->db->select('password_d');
         $this->db->from("empleados");
         $this->db->where('curp', $id);
         $query = $this->db->get();
-        if($query->num_rows()>0) {
+        if ($query->num_rows()>0) {
             foreach ($query->result() as $row) {
-                return $row->password_d;    
+                return $row->password_d;
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -104,7 +103,7 @@ Class Empleado_model extends CI_Model
     {
         return $this->db->insert("empleados", $usuario);
     }
-    function findempleado($tabla,$id)
+    function findempleado($tabla, $id)
     {
         $this->db->select("*");
         $this->db->from("empleados");
@@ -112,7 +111,7 @@ Class Empleado_model extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function findempleado_by_cuenta($cuenta,$id)
+    function findempleado_by_cuenta($cuenta, $id)
     {
         $this->db->select("*");
         $this->db->from("empleados");
@@ -121,11 +120,9 @@ Class Empleado_model extends CI_Model
         $query = $this->db->get();
         return $this->realizar_query($query);
     }
-    function update($datos,$id)
+    function update($datos, $id)
     {
         $this->db->where('curp', $id);
-        return $this->db->update("empleados", $datos); 
+        return $this->db->update("empleados", $datos);
     }
-    
 }
-

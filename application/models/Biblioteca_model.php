@@ -1,7 +1,7 @@
-<?php 
-Class biblioteca_model extends CI_Model
+<?php
+class biblioteca_model extends CI_Model
 {
-    public function construct() 
+    public function construct()
     {
          parent::__construct();
     }
@@ -22,8 +22,6 @@ Class biblioteca_model extends CI_Model
     function update($datos)
     {
         $this->db->where('idbiblio', 374);
-        return $this->db->update('datosbiblio', $datos); 
+        return $this->db->update('datosbiblio', $datos);
     }
 }
-
-
