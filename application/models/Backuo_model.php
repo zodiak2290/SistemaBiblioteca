@@ -1,27 +1,27 @@
 <?php
 Class Backuo_model extends CI_Model
 {
-  public function construct() {
+    public function construct() 
+    {
         parent::__construct();
-  }
+    }
      /**
      * Backup database
-     * @param bool|string $save_to Save to file(path & name) or return it as string(when set to FALSE)
-     * @param bool $compress set to TRUE if you want to compress it to GZip
-     * @param array $tables List of tables you want to backup
+      *
+     * @param  bool|string $save_to  Save to file(path & name) or return it as string(when set to FALSE)
+     * @param  bool        $compress set to TRUE if you want to compress it to GZip
+     * @param  array       $tables   List of tables you want to backup
      * @return string|null
      */
-    function backup($save_to = FALSE, $compress = FALSE, $tables = array())
+    function backup($save_to = false, $compress = false, $tables = array())
     {
-        ini_set('memory_limit','512M');
+        ini_set('memory_limit', '512M');
         set_time_limit(2000);
         //get all of the tables
-        if( count($tables) == 0 )
-        {
+        if(count($tables) == 0 ) {
             $tables = array();
             $query = $this->db->query('SHOW TABLES');
-            if ( $query->num_rows() > 0 )
-            {
+            if ($query->num_rows() > 0 ) {
                 $field_name = 'Tables_in_' . $this->db->database;
                 foreach ( $query->result() as $item )
                 {
@@ -31,7 +31,7 @@ Class Backuo_model extends CI_Model
         }
         else
         {
-            $tables = is_array($tables) ? $tables : explode(',',$tables);
+            $tables = is_array($tables) ? $tables : explode(',', $tables);
         }
         //cycle through
         $return = "
@@ -58,8 +58,7 @@ Class Backuo_model extends CI_Model
                 $return.="LOCK TABLES `". $table ."` WRITE;\n";
                 $return.="/*!40000 ALTER TABLE `".$table."` DISABLE KEYS */;\n";
              
-            if ( $query->num_rows() > 0 )
-            {
+            if ($query->num_rows() > 0 ) {
 
                 $con=0;
                 foreach ( $query->result() as $row )
@@ -69,10 +68,10 @@ Class Backuo_model extends CI_Model
                     {
                         array_push($values, $this->db->escape($value));
                     }
-                    if($con==0){
+                    if($con==0) {
                         $return.="INSERT INTO `".$table."` VALUES(" . implode(',', $values) .  ")";
                         $con+=1;
-                    }elseif($con<3000){
+                    }elseif($con<3000) {
                         $return.=",(" . implode(',', $values) .  ")";
                         $con+=1;
                     }else{
@@ -139,14 +138,18 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 " ;
-        if ( $save_to === FALSE ){ if ( $compress === TRUE ){ return gzencode($return); } else { return $return; } }
+        if ($save_to === false ) { if ($compress === true ) { return gzencode($return); 
+        } else { return $return; 
+        } 
+        }
         else
         {
             $handle  = fopen($save_to, 'w');
-            if ( $handle !== FALSE )
-            {
-                if ( $compress === FALSE ){ fwrite($handle, $return); }
-                else { fwrite($handle, gzencode($return)); }
+            if ($handle !== false ) {
+                if ($compress === false ) { fwrite($handle, $return); 
+                }
+                else { fwrite($handle, gzencode($return)); 
+                }
                 fclose($handle);
             }
             else
