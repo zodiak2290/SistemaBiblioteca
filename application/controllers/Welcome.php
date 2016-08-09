@@ -4,7 +4,7 @@ class Welcome extends MY_Controller {
 	function __construct() {
         parent::__construct();
          
-        $this->load->model('Actividad_model','',TRUE);
+        $this->load->model('ActividadModel','',TRUE);
        $this->load->model('Libro_model','',TRUE);
        $this->load->library('pagination');
        //$this->output->cache(1);
@@ -38,7 +38,7 @@ class Welcome extends MY_Controller {
 		//total de dias del mes
 		$diasdelMes=date("d",mktime(0,0,0,date("m")+1,0,date("Y")));
 		if($diasdelMes>=$day){
-			$actividades=$this->Actividad_model->actividadesmes(0,$day);
+			$actividades=$this->ActividadModel->actividadesmes(0,$day);
 			if($actividades){
 				$data['acti']=$actividades;
 				$data['content']='actividades';
@@ -56,10 +56,10 @@ class Welcome extends MY_Controller {
 		carga actividades en la pagina principal en la vista actividades  
 	*/
 	function actividades($cont=0){	
-		$actividades=$this->Actividad_model->actividadesmes($cont);
+		$actividades=$this->ActividadModel->actividadesmes($cont);
 		$config=$this->get_configuracion_paginacion(
 					base_url().'actividades',
-					$this->Actividad_model->contaractividadesmes(),
+					$this->ActividadModel->contaractividadesmes(),
 					'2');	
 		$this->pagination->initialize($config);
 		$data['acti']=isset($actividades)? $actividades : [];

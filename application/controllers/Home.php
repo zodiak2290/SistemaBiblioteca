@@ -220,15 +220,15 @@ function respaldar(){
  }
  //carga vista para agregqar fechas a una actividad ya creada
 function agregarfechas($idactividad){
-  $this->load->model('Actividad_model','',TRUE);
-  $actividad = $this->Actividad_model->find_by_id($idactividad); 
+  $this->load->model('ActividadModel','',TRUE);
+  $actividad = $this->ActividadModel->findById($idactividad); 
   $pagina='evento/actividades';
   $this->cargarpage($pagina,$actividad);
 }
 //  Carga vista para mostra una determinada actividad  y poder registrar las visitas
   function findevbyid($idactividad){  
-    $this->load->model('Actividad_model','',TRUE);  
-    $evento = $this->Actividad_model->findbyid($idactividad);
+    $this->load->model('ActividadModel','',TRUE);  
+    $evento = $this->ActividadModel->findByIdCalendar($idactividad);
     $pagina=($evento) ? 'evento/show' : '../Error';
     $this->cargarpage($pagina,$evento);  
   }

@@ -6,7 +6,7 @@ class Actividad extends MY_Controller  {
 	function __construct(){
         parent::__construct();
         $this->load->library('form_validation'); 
-        $this->load->model('Actividad_model','',TRUE);
+        $this->load->model('ActividadModel','',TRUE);
     }
     //funcion principal muestra la pagina de inicio
 	function index(){	
@@ -16,7 +16,7 @@ class Actividad extends MY_Controller  {
         if(validarsesion()){
             if(validarsesion()['rol']==4){
                 $arr_data=array();
-                $actividades=$this->Actividad_model->actividadessinfecha();
+                $actividades=$this->ActividadModel->actividadessinfecha();
                 if($actividades){
                     $arr_data['actividadesf']=$actividades;
                 }
@@ -36,7 +36,7 @@ class Actividad extends MY_Controller  {
         $out = array();
         $arr=array('anio'=>'');
         //$arr['anio']=$anio;
-        $actividades=$this->Actividad_model->show(0,"s",$anio);
+        $actividades=$this->ActividadModel->show("s",$anio);
         if($actividades){
             foreach ($actividades as $row) {
                $class=$row->enregistro==0 ? 'parpadea' : '';
@@ -79,13 +79,13 @@ class Actividad extends MY_Controller  {
             if(validarsesion()['rol']==4){
                 $data = json_decode(file_get_contents("php://input"));
                 if(isset($data->ida)&&isset($data->idactiv)){
-                    $actividad=$this->Actividad_model->find_by_id($data->idactiv);  
+                    $actividad=$this->ActividadModel->findById($data->idactiv);  
                     if($actividad){
                         $dirigido="";
                         foreach ($actividad as $row) {
                             $dirigido=$row->dirigidoa;
                         }
-                        $exito=(strcmp($dirigido,"te")==0) ?$this->Actividad_model->deletera($data->ida):$this->Actividad_model->deleteac($data->ida);
+                        $exito=(strcmp($dirigido,"te")==0) ?$this->ActividadModel->deletera($data->ida):$this->ActividadModel->deleteac($data->ida);
                         echo $exito ? "Eliminado":"Intente de nuevo";
                     }else{
                         echo "Intente de nuevo";
@@ -106,10 +106,10 @@ class Actividad extends MY_Controller  {
                     if(is_int(intval($data->valor))){
                         if(isset($data->dir)){
                             if(strcmp($data->dir,"ninos")==0||strcmp($data->dir,"jovenes")==0||strcmp($data->dir,"adultos")==0){
-                                $registro=$this->Actividad_model->registroactividadte(intval($data->valor),substr($data->ida,0,strlen($data->ida)-1),$data->dir);
+                                $registro=$this->ActividadModel->registroactividadte(intval($data->valor),substr($data->ida,0,strlen($data->ida)-1),$data->dir);
                             }  
                         }else{
-                            $registro=$this->Actividad_model->registroactividad(intval($data->valor),$data->ida);
+                            $registro=$this->ActividadModel->registroactividad(intval($data->valor),$data->ida);
                         }
                         if($registro){
                            echo "Listo";
@@ -132,7 +132,7 @@ class Actividad extends MY_Controller  {
     {  
         if($this->dejarpasar(validarsesion()['rol'])){
             $imagen='';
-            $datos=$this->Actividad_model->find_by_id($id);
+            $datos=$this->ActividadModel->findById($id);
             if($datos){    
                 foreach ($datos as $row)
                     {
@@ -140,7 +140,7 @@ class Actividad extends MY_Controller  {
                     }   
                 }
              $this->borrarimagen($imagen);
-             $borrar = $this->Actividad_model->delete($id);
+             $borrar = $this->ActividadModel->delete($id);
             $this->session->set_flashdata('correcto', 'Eliminado');
           redirect(base_url().'home/actividades', 'refresh');
         }else{
@@ -190,10 +190,10 @@ class Actividad extends MY_Controller  {
     }  
     private function insertar_dias_act($arrdias,$id){
         $insercioncorrecta=true;
-        $con=$this->Actividad_model->total_actividades_by_evento($id);
+        $con=$this->ActividadModel->totalActividadesByEvento($id);
         $con=$con+1;
         foreach ($arrdias as $dia) {
-            $datos=$this->Actividad_model->diasactividad($dia,$id,$con);   
+            $datos=$this->ActividadModel->diasactividad($dia,$id,$con);   
             $insercioncorrecta=$insercioncorrecta&&$datos;
             $con++;
         }
@@ -258,7 +258,7 @@ class Actividad extends MY_Controller  {
                            $imgin=$this->cargarimagen();
                            if(strcmp($imgin,"Imagen agregada")==0){ 
                             $cuenta = validarsesion()['cuentausuario'];
-                           $subir=$this->Actividad_model->subir($titulo,$this->namimg,$desc,$cuenta,$dirigido,$lugar,$inicio,$fin); 
+                           $subir=$this->ActividadModel->subir($titulo,$this->namimg,$desc,$cuenta,$dirigido,$lugar,$inicio,$fin); 
                            if($subir){
                                 $mesnaje="Registrada";
                                 $imagen=explode(".",$this->namimg)[0]."_thumb.".explode(".",$this->namimg)[1];                              
@@ -332,7 +332,7 @@ class Actividad extends MY_Controller  {
                     $this->_create_thumbnail($file_info['file_name']);
                     $data = array('upload_data' => $this->upload->data());
                     $imagen = $config['file_name'];
-                    $this->Actividad_model->updateimage($id,$imagen); 
+                    $this->ActividadModel->updateimage($id,$imagen); 
                     redirect(base_url().'home/actividad/ver/'.$id, 'refresh');
                 }
         }else{
@@ -361,7 +361,7 @@ class Actividad extends MY_Controller  {
     }
 private function update($actividad,$id){
     $mensaje="";
-    $correcto=$this->Actividad_model->update($actividad,$id);
+    $correcto=$this->ActividadModel->update($actividad,$id);
     $mensaje=$correcto ? "Actualización Exitosa" : "No fue posible actualizar los datos. Intente de nuevo";
     return $mensaje;
 }
