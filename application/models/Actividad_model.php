@@ -1,7 +1,6 @@
 <?php
-namespace application\controllers;
 
-class ActividadModel extends CI_Model
+class Actividad_model extends CI_Model
 {
     private $_mnjactividadregistrada="Actividad ya registrada";
     public function construct()
@@ -65,7 +64,7 @@ class ActividadModel extends CI_Model
         $this->db->where('actividadid', $actividadId);
         $this->db->where('dia', $dia);
         $query = $this->db->get();
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
     public function actividadessinfecha()
     {
@@ -85,7 +84,7 @@ class ActividadModel extends CI_Model
         having count(idregistroactividadte)=0
         "
         );
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
   
     public function registroactividadte($valor, $id, $tipo)
@@ -114,7 +113,7 @@ class ActividadModel extends CI_Model
         $this->db->where('actividad_id', $actividadId);
         $this->db->where('dia', $dia);
         $query = $this->db->get();
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
     public function actividadesmes($cont = 0, $dia = "")
     {
@@ -145,7 +144,7 @@ class ActividadModel extends CI_Model
         order by dia
         limit " .$cont." ,10"
         );
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
     public function contaractividadesmes()
     {
@@ -165,7 +164,7 @@ class ActividadModel extends CI_Model
         and dia>date_sub( now(),interval 1 day)
         ) as total"
         );
-        return $this->get_total($query);
+        return $this->getTotal($query);
     }
     private function realizarQuery($query)
     {
@@ -173,7 +172,7 @@ class ActividadModel extends CI_Model
     }
     private function getTotal($query)
     {
-        $result=$this->realizar_query($query);
+        $result=$this->realizarQuery($query);
         $total=0;
         foreach ($result as $toal) {
             $total=$toal->total;
@@ -216,8 +215,9 @@ class ActividadModel extends CI_Model
          ".$and."   
          order by dia"
         );
-        return (strcmp($contar, "contar")==0) ?$query->num_rows():$this->realizar_query($query);
+        return (strcmp($contar, "contar")==0) ?$query->num_rows():$this->realizarQuery($query);
     }
+
     public function findByIdCalendar($idactividad)
     {
         $actividad=$this->findById($idactividad);
@@ -237,7 +237,7 @@ class ActividadModel extends CI_Model
         $this->db->where('idactividad', $idactividad);
         $this->db->order_by('dia', 'asc');
         $query = $this->db->get();
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
 
     public function findById($idactividad)
@@ -246,7 +246,7 @@ class ActividadModel extends CI_Model
         $this->db->from('actividades');
         $this->db->where('idactividad', $idactividad);
          $query = $this->db->get();
-        return $this->realizar_query($query);
+        return $this->realizarQuery($query);
     }
     public function subir($titulo, $imagen, $descripcion, $cuenta, $dirigido, $lugar, $inicio, $fin)
     {

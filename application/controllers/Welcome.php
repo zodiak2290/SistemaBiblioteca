@@ -4,9 +4,9 @@ class Welcome extends MY_Controller {
 	function __construct() {
         parent::__construct();
          
-        $this->load->model('ActividadModel','',TRUE);
-       $this->load->model('Libro_model','',TRUE);
-       $this->load->library('pagination');
+		$this->load->model('Actividad_model','',TRUE);
+		$this->load->model('Libro_model','',TRUE);
+		$this->load->library('pagination');
        //$this->output->cache(1);
     }
     /*funcion inicial de la aplicaion
@@ -38,7 +38,7 @@ class Welcome extends MY_Controller {
 		//total de dias del mes
 		$diasdelMes=date("d",mktime(0,0,0,date("m")+1,0,date("Y")));
 		if($diasdelMes>=$day){
-			$actividades=$this->ActividadModel->actividadesmes(0,$day);
+			$actividades=$this->Actividad_model->actividadesmes(0,$day);
 			if($actividades){
 				$data['acti']=$actividades;
 				$data['content']='actividades';
@@ -56,10 +56,10 @@ class Welcome extends MY_Controller {
 		carga actividades en la pagina principal en la vista actividades  
 	*/
 	function actividades($cont=0){	
-		$actividades=$this->ActividadModel->actividadesmes($cont);
+		$actividades=$this->Actividad_model->actividadesmes($cont);
 		$config=$this->get_configuracion_paginacion(
 					base_url().'actividades',
-					$this->ActividadModel->contaractividadesmes(),
+					$this->Actividad_model->contaractividadesmes(),
 					'2');	
 		$this->pagination->initialize($config);
 		$data['acti']=isset($actividades)? $actividades : [];
@@ -104,7 +104,7 @@ class Welcome extends MY_Controller {
 		verifica si se tienen los permisos para realziar busquedas
 
 	*/ 
-	public function buscar($busqueda="",$tipo=1,$cont=0){
+	public function buscar($busqueda="",$tipo=0,$cont=0){
 		$this->load->model('Biblioteca_model','',TRUE);
 		if($this->Biblioteca_model->getpermisoBiblio('permitirbusqpri')){
 			$resultados=array();
@@ -130,6 +130,9 @@ class Welcome extends MY_Controller {
 				}elseif($tipo==3){
 					$resultados=$this->Consulta_model->bytema($busqueda,$cont);
 					$total=$this->Consulta_model->bytema($busqueda,$cont,"contar");
+				}else{
+					$resultados=[];
+					$total=0;
 				}
 				//configuracion de paginacion					
 				$config=$this->get_configuracion_paginacion(
