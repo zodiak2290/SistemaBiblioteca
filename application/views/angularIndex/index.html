@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Biblioteca</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/newage/new-age.min.css">
+  </head>
+  <body ng-app="biblioteca" id="page-top">
+    <div ng-controller="inicioCtrl as vm" ng-cloak>
+      <nav-bar>
+          <!-- Brand and toggle get grouped for better mobile display -->
+        <navbar-header titlenav="'Menu'" subtitlenav="'Biblioteca'"> </navbar-header>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+        <navbar-collapse id="bs-example-navbar-collapse-1">
+          <linav-bar liref="'biblioteca'" liname="'Conocenos'"></linav-bar>
+          <linav-bar liref="'actividades'" liname="'Actividades'"></linav-bar>
+          <linav-bar liref="'servicios'" liname="'Servicios'"></linav-bar>
+          <linav-bar liref="'consulta'" liname="'Consulta'"></linav-bar>  
+          <linav-bar liref="'contacto'" liname="'Contacto'"></linav-bar>
+          <linav-bar liref="'login'" liname="'Iniciar Sesión'"></linav-bar>           
+        </navbar-collapse> 
+      </nav-bar>
+      <header-age data-img="images/inicio/demo.jpg">
+        <div class="header-content-inner">
+            <h1>New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
+        </div>        
+      </header-age>
+      <section-age namemenu="'biblioteca'" clases="'download bg-primary text-center'"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p align="justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+                    <p align="justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+                    <p align="justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum molestiae debitis nobis, quod sapiente qui voluptatum, placeat magni repudiandae accusantium fugit quas labore non rerum possimus, corrupti enim modi! Et.</p>
+                </div>
+            </div>
+        </div>
+      </section-age>
+      <section-age namemenu="'actividades'" clases="'features'"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Actividades</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/1"> </item-portfolio>
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/2"> </item-portfolio>
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/3"> </item-portfolio>
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/4"> </item-portfolio>
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/5"> </item-portfolio>
+                <item-portfolio iditem="'portfolioModal1'" data-imagen="http://lorempixel.com/250/200/sports/6"> </item-portfolio>
+            </div>
+        </div>    
+      </section-age>
+      <section-age namemenu="'servicios'" clases="'download bg-primary text-center'">
+            <div class="row">
+
+            </div> 
+      </section-age>
+      <section-age namemenu="'consulta'" clases="'features'">
+            <div class="row">
+            </div> 
+      </section-age>
+      <section-age namemenu="'contacto'" clases="'download bg-primary text-center'">
+            <div class="row">
+              
+            </div> 
+      </section-age>
+    </div>
+
+    <script src="js/appAng/jquery.min.js"></script>
+    <script src="js/appAng/bootstrap/bootstrap.min.js"></script>  
+    <script src="js/appAng/angular.min.js"></script>
+    <script src="js/appAng/app.js"></script>
+    <script src="js/appAng/directivas/index/navbar/navbar.js"></script>
+    <script src="js/appAng/directivas/index/navbarHeader/navbarHeader.js"></script>
+    <script src="js/appAng/directivas/index/navbarCollapse/navbarCollapse.js"></script>
+    <script src="js/appAng/directivas/index/linavBar/linavBar.js"></script>
+    <script src="js/appAng/directivas/index/headerAge/headerAge.js"></script>
+    <script src="js/appAng/directivas/index/sectionAge/sectionAge.js"></script>
+    <script src="js/appAng/directivas/index/itemPortfolio/itemPortfolio.js"></script>
+  </body>
+</html>

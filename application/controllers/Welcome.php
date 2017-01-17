@@ -16,12 +16,13 @@ class Welcome extends MY_Controller {
 		si se ingresa una vista que no este especificada en tal arreglo 
 		envia a pagina de error
 	*/
-	public function index($pagina='welcome_message')
+	public function index($pagina='inicio')
 	{
 		//$this->benchmark->mark('codigo_inicio');
-		$arrpaginas=["welcome_message","conocenos","servicios","consulta","contacto","login","actividades","permisos","datosejem","restablecer","cambiarpass","nodisponible"];
-		$accesso=in_array($pagina,$arrpaginas);
-		$pagina=$accesso ? $pagina : 'Error';
+		
+		//$arrpaginas=["welcome_message","conocenos","servicios","consulta","contacto","login","actividades","permisos","datosejem","restablecer","cambiarpass","nodisponible"];
+		//$accesso=in_array($pagina,$arrpaginas);
+		//$pagina=$accesso ? $pagina : 'Error';
 		$datos['content']=$pagina;
 		$this->cargapage($datos);
 		//$this->benchmark->mark('codigo_fin');
@@ -97,7 +98,7 @@ class Welcome extends MY_Controller {
 		carga la  pagina de inicio con su respectiva vista 
 	*/
 	private function cargapage($datos){
-		$this->load->view('layouts/layoutprincipal', $datos);
+		$this->load->view('angularIndex/index.html', $datos);
 	}
 	/*
 		@params termino de busqueda tipo 1:titulo 2:autor 3:materia contador de paginacion
