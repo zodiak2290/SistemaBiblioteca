@@ -1,0 +1,20 @@
+<div class="content"> 
+  	<div class="Absolute-Center is-Responsive" id="caja">
+    	<div class="col-sm-12 col-md-10 col-md-offset-1">
+      		<div-load></div-load>
+      		<div id="elcontenedor" ng-transclude>
+      			<!--Aqui se mostrara el contenido -->
+            </div>
+			<div class="col-lg-12" ng-if="mensaje">
+				<div class="alert alert-{{alert}} fade in" role="alert" id="mensajes">
+				  	<div ng-if="mensaje"> 
+				  		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> 
+				  		{{mensaje}}
+				  	</div>
+				  	<div ng-if="mensaje2"><p>{{mensaje2}}</p></div>
+				  	<div ng-if="mensaje3"><p>{{mensaje3}}</p></div>
+				</div>
+			</div> 
+    	</div>
+  	</div>
+</div>
