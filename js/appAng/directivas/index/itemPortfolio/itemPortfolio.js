@@ -7,7 +7,7 @@ app.directive('itemPortfolio', [function () {
     		iditem: '=iditem',
     	},
     	link: function(scope,iElement, iAttr){
-    		console.log(iAttr.imagen);
+    		//console.log(iAttr.imagen);
     		scope.imagenItem=iAttr.imagen;
     	}
 	};
