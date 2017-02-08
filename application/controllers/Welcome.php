@@ -98,7 +98,7 @@ class Welcome extends MY_Controller {
 		carga la  pagina de inicio con su respectiva vista 
 	*/
 	private function cargapage($datos){
-		$this->load->view('angularIndex/index.html', $datos);
+		$this->load->view('angularIndex/index', $datos);
 	}
 	/*
 		@params termino de busqueda tipo 1:titulo 2:autor 3:materia contador de paginacion

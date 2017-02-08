@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>Biblioteca</title>
+    <title> Biblioteca</title>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap/newage/new-age.min.css">
   </head>
   <body ng-app="biblioteca" id="page-top">
+    <?php 
+      $login = false;
+      if(isset($_SESSION['logged_in'])) {
+        $login =  true;
+      } ?>
     <div ng-controller="inicioCtrl " ng-cloak>
       <nav-bar>
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,7 +24,17 @@
           <linav-bar liref="'servicios'" liname="'Servicios'"></linav-bar>
           <linav-bar liref="'consulta'" liname="'Consulta'"></linav-bar>  
           <linav-bar liref="'contacto'" liname="'Contacto'"></linav-bar>
-          <linav-bar liref="'login'" liname="'Iniciar Sesión'"></linav-bar>           
+          
+          <?php if(!$login){ ?>
+              <linav-bar liref="'login'" liname="'Iniciar Sesión'"></linav-bar> 
+          <?php }else{ ?>
+              <li>
+                <a href="<?php echo base_url(); ?>home"> Inicio</a>
+              </li>
+              <li>
+                <a href="<?php echo base_url(); ?>home/logout"> Cerrar sesión</a>
+              </li>
+          <?php }  ?>          
         </navbar-collapse> 
       </nav-bar>
       <header-age data-img="images/inicio/demo.jpg">
@@ -89,7 +104,7 @@
       </section-age>
       <section-age namemenu="'login'" clases="'text-center'">
         <panel-login mensaje="mensaje" alert="alert" mensaje2="mensaje2" mensaje3="mensaje3">
-          <form id="form1" name="form1" method="post" action="verifylogin">
+          <form id="form1" name="form1" method="post" novalidate="">
             <div class="col-lg-12 text-center"  style="margin-bottom: 4px;">
                 <input-group  data-igicon="user" 
                               data-igtype="text" 
@@ -111,7 +126,7 @@
                               > 
                 </input-group>
               <div class="form-group">
-                <button id="button" name="button"  type="submit" class="btn btn-info btn-xl form-control"  >Ingresar</button>
+                <button id="button" name="button"  type="submit" class="btn btn-info btn-xl form-control" ng-click="login(user)">Ingresar</button>
               </div>
             </div>
           </form>

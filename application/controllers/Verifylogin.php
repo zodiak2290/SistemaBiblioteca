@@ -4,6 +4,8 @@ class VerifyLogin extends MY_Controller {
 
     var $cuenta = "", $password = "";
 
+    var $respuesta = array('mensaje' => "", 'alert'=>'' );
+
     function __construct()
     {
         parent::__construct();
@@ -32,15 +34,16 @@ class VerifyLogin extends MY_Controller {
         else
         {
             //Verifica que user y pass sean correctos
-            $this->check_database();      
+            $this->buscarUsuario();      
         }
      }
 
-     private function usuario_logueado($datos){
+     private function getDataSession($datos){
         $sess_array = array();
+
         foreach($datos as $row)
         {
-            $rol=isset($row->rol)?$row->rol:7;
+            $rol=isset($row->rol) ? $row->rol : 7;
             $sess_array = array(
               'cuentausuario' => $row->cuentausuario,
               'pnombre' => $row->pnombre,
@@ -48,11 +51,13 @@ class VerifyLogin extends MY_Controller {
               'idpersona'=> $row->curp
            );   
         }
-        $sess_array['token']= $this->input->post('token');
+
+        $sess_array['token']= md5("correcto" . $this->cuenta . rand(1,10) );
+        
         return $sess_array;  
      }
 
-    private function validar_Intentos($intentos_fecha){
+    private function validarIntentos($intentos_fecha){
       $num_intentos=0;
       $fecha_ultimo_intento=date("Y-m-d H:i:s");
       $continuar=false;
@@ -74,7 +79,8 @@ class VerifyLogin extends MY_Controller {
       return $continuar;
     }
 
-    function check_database(){  
+    private function buscarUsuario(){  
+      
       $result=false;
       $bloqueo=false;
       $intentos_fecha=false;
@@ -93,10 +99,10 @@ class VerifyLogin extends MY_Controller {
        
         $result = $this->User->is_usuariob($cuenta, $password);
         $intentos_fecha=$this->User->get_intentos_fecha($cuenta,'usuariobiblio','cuentausuario');
-        $intentosvalidos=$this->validar_Intentos($intentos_fecha);   
+        $intentosvalidos=$this->validarIntentos($intentos_fecha);   
        
         if($intentosvalidos){
-          $this->incrementar_Intento_Logueo($cuenta,'cuentausuario','usuariobiblio',$result);
+          $this->incrementarIntentoLogueo($cuenta,'cuentausuario','usuariobiblio',$result);
         }
        
         $datos=$result ? $result['datos'] : [];
@@ -107,10 +113,10 @@ class VerifyLogin extends MY_Controller {
         $result=$this->User->usuariode($cuenta, $password);
 
         $intentos_fecha=$this->User->get_intentos_fecha($cuenta,'empleados','cuenta');
-        $intentosvalidos=$this->validar_Intentos($intentos_fecha);   
+        $intentosvalidos=$this->validarIntentos($intentos_fecha);   
         
         if($intentosvalidos){
-          $this->incrementar_Intento_Logueo($cuenta,'cuenta','empleados',$result);
+          $this->incrementarIntentoLogueo($cuenta,'cuenta','empleados',$result);
         }
         
         $datos=$result?$result:[];
@@ -119,14 +125,14 @@ class VerifyLogin extends MY_Controller {
       }
       
       if($intentosvalidos){
-        $this->usuario_Correcto($result,$datos,$acccesotipo);
+          $this->usuarioCorrecto($result,$datos,$acccesotipo);
       }else{
-        $this->session->set_flashdata('correcto','Se ha denegado el inicio de sesión por 4 intentos fallidos.Intenta de nuevo mas tarde');
-        $this->dirigira('login');   
+          $this->respuesta['alert'] = 'warning';
+          $this->respuesta['mensaje'] = 'Se ha denegado el inicio de sesión por 4 intentos fallidos.Intenta de nuevo mas tarde';  
       }
     }
 
-   private function incrementar_Intento_Logueo($cuenta,$campo,$tabla,$result){
+   private function incrementarIntentoLogueo($cuenta,$campo,$tabla,$result){
       if(!$result){
         $this->User->actualizarIntento($cuenta,1,$campo,$tabla);
       }else{
@@ -134,96 +140,66 @@ class VerifyLogin extends MY_Controller {
       }
    }
 
-   private function usuario_Correcto($acceso,$datos,$acccesotipo){
+   private function usuarioCorrecto($acceso,$datos,$acccesotipo){
       if($acceso){
-        $this->verificar_Permisos_Acceso($datos,$acccesotipo);
+          $this->verificarPermisosAcceso($datos,$acccesotipo);
       }else{
-        $this->session->set_flashdata('correcto', 'Datos Incorrectos');
-        $this->dirigira('login');        
+          $this->respuesta['alert'] = 'error';
+          $this->respuesta['mensaje'] = 'Datos Incorrectos';        
       }
    }
    //el usuario se logueo correctamente , esta funcion verifica si hay permisos de acceso al sistema
-   private function verificar_Permisos_Acceso($datos,$acccesotipo){
-      $sess_array = $this->usuario_logueado($datos);
-      $bloqueo=$sess_array['rol']!=7?false:$this->is_bloqueado($sess_array['cuentausuario']);
+   private function verificarPermisosAcceso($datos,$acccesotipo){
+      
+      $sess_array = $this->getDataSession($datos);
+
+      $bloqueo=$sess_array['rol']!=7 ? false : $this->isBloqueado($sess_array['cuentausuario']);
+
       if($this->Biblioteca_model->getpermisoBiblio($acccesotipo)||$sess_array['rol']==1||$sess_array['rol']==8){    
         if(!$bloqueo){
           $this->session->set_userdata('logged_in', $sess_array);
-          $this->dirigira('home');
+          $this->respuesta['alert'] = 'success';
+          $this->respuesta['mensaje'] = 'Se esta redirigiendo a la pagina principal..';
+          $this->respuesta['token'] = $sess_array['token'];
         }else{
-          $this->dirigira('permisos');
+          $this->respuesta['alert'] = 'error';
+          $this->respuesta['mensaje'] = 'Tu cuenta ha sido bloqueada';
         }
       }else{
-        $this->dirigira('nodisponible');
+        $this->respuesta['alert'] = 'error';
+        $this->respuesta['mensaje'] = 'Servicio temporalmente no disponible.';
       } 
    }
-   private function is_bloqueado($cuenta){
+   
+   private function isBloqueado($cuenta){
       return $this->User->userbloqueado($cuenta);
    }
+
    function dirigira($dir){
       redirect($dir, 'refresh');
    }
-   function loginandroid(){
+   
 
-//login prigin
-    /*
-    if (isset($_SERVER['HTTP_ORIGIN'])) {  
-        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");  
-        header('Access-Control-Allow-Credentials: true');  
-        header('Access-Control-Max-Age: 86400');   
-    }  
-      
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {  
-      
-        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))  
-            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");  
-      
-        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))  
-            header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");  
-    } */ 
-//
-      $data = json_decode(file_get_contents("php://input"));
-      if(isset($data->user->email)&&isset($data->user->pass)){
-          $this->cuenta = $data->user->email;
-          $this->password = $data->user->pass;
-          $this->check_database();
-          /*$resulty = $this->User->usuariode($cuenta, $password);
-          if($resulty){
-              $arr['usuario']=$resulty;
-              $arr['mensaje']="Acceso exitoso";
-              $arr['rol']=2;
-              $arr['login']=true;
-          }elseif(!$this->is_bloqueado($cuenta)){
-            if($this->Biblioteca_model->getpermisoBiblio('accesousuarios')){ 
-               $result = $this->User->loginandroi($cuenta, $password);
-               $arr=[];
-               if($result){
-                  $arr['usuario']=$result;
-                  $arr['mensaje']="Acceso exitoso";
-                  $arr['login']=true;
-                  $arr['rol']=1;
-               }else{
-                  $arr['usuario']='';
-                  $arr['mensaje']="Cuenta o contraseña incorrectos";
-                  $arr['login']=false;
-               }
-              }else{
-                $arr['usuario']='';
-                  $arr['mensaje']="Servicio no disponible";
-                  $arr['login']=false;
-              } 
-           }else{
-            $arr['usuario']='';
-                $arr['mensaje']="Tu cuenta ha sido bloqueada";
-                $arr['login']=false;
-           }*/
-           }else{
-            $arr['login']=false;
-            $arr['mensaje']="Ingrese cuenta y password";
-            $arr['usuario']='';
-           }
-       echo json_encode($arr);
-   }
+  function loginandroid(){
+    $data = json_decode(file_get_contents("php://input"));
+    
+    if(isset($data->user->email)&&isset($data->user->pass)){
+
+        $this->cuenta = $data->user->email;
+        $this->password = $data->user->pass;
+        $this->buscarUsuario();
+       
+    }else{
+      $this->respuesta['alert']='error';
+      $this->respuesta['mensaje']="Ingrese cuenta y password";        
+    }
+
+    echo json_encode($this->getRespuesta());
+  }
+
+  private function getRespuesta(){
+    return $this->respuesta;
+  }
 
 }
 ?>

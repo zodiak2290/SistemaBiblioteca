@@ -14,7 +14,9 @@ function inicioCtrl($scope, miHttp){
 		miHttp.setData('/loginandroid', 'POST', data)
 		miHttp.getDatos()
 	        .then(function (result){
-	            console.log(result);
+	        	console.log(result);
+	        	procesaResultado(result);
+
 	        }).catch(function (message) {
 	          
 	        }).finally(function(){
@@ -22,4 +24,12 @@ function inicioCtrl($scope, miHttp){
 	        });
 	}
 
+	function procesaResultado(result){
+		if(result.alert == "success"){
+			window.location = "/home";
+		}else{
+	    	$scope.mensaje = result.mensaje;
+	   		$scope.alert = result.alert == "error" ? "danger" : result.alert;
+	   	}
+	}
 }
