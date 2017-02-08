@@ -1091,18 +1091,26 @@ private function get_ultimo_uso($nadqui,$tipo){
 	 function chart(){
 	 	$clasificacion=$this->Libro_model->get_clasificaciones_grafica();
 	 	$data= array();
-	 	foreach ($clasificacion as $dato) {
-	 		array_push($data,$this->get_Dataset($dato));
-	 	}
+
+	 	if($clasificacion){
+
+		 	foreach ($clasificacion as $dato) {
+		 		array_push($data,$this->get_Dataset($dato));
+		 	}
+		}
 	 	echo json_encode($data);
 	 }
 	 function prestamospor_categoria(){
 	 	$clasificacion=$this->Libro_model->get_prestamos_por_categoria();
 	 	$data= array();
-	 	foreach ($clasificacion as $dato) {
-	 		array_push($data,$this->get_Dataset($dato));
-	 	}
-	 	echo json_encode($data);
+
+	 	if($clasificacion){
+
+		 	foreach ($clasificacion as $dato) {
+		 		array_push($data,$this->get_Dataset($dato));
+		 	}
+		}
+		 	echo json_encode($data);
 	 }
 	  private function get_Dataset($dato){
         $dataset=array();
